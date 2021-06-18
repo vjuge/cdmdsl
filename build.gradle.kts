@@ -6,10 +6,11 @@ plugins {
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.20"
     signing
+
 }
 
-val cdm_version = "2.85.0"
-val patch_version = "2"
+val cdm_version = "2.111.0"
+val patch_version = ""
 
 group = "com.github.vjuge"
 val artifactId = "cdmdsl"
@@ -52,7 +53,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
 }
 
 java {
