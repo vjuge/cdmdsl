@@ -1,6 +1,6 @@
 package com.github.vjuge.cdmdsl
 
-import cdm.legalagreement.contract.Contract
+import cdm.event.common.Trade
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 
@@ -8,8 +8,8 @@ class DslTest {
 
     @Test
     fun testDsl(){
-        val contract = Contract.builder().apply {
-            contractIdentifier {
+        val contract = Trade.builder().apply {
+            tradeIdentifier {
                 assignedIdentifier {
                     identifier {
                         value = "myId"
@@ -17,6 +17,6 @@ class DslTest {
                 }
             }
         }.build()
-        assertEquals("myId", contract!!.contractIdentifier[0]!!.assignedIdentifier[0]!!.identifier!!.value)
+        assertEquals("myId", contract!!.tradeIdentifier[0]!!.assignedIdentifier[0]!!.identifier!!.value)
     }
 }
