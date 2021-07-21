@@ -1,6 +1,6 @@
 /**
  * This file is auto-generated from the ISDA Common Domain Model, do not edit.
- * Version: 2.111.0
+ * Version: 2.116.0
  */
 
 package com.github.vjuge.cdmdsl
@@ -61,14 +61,8 @@ import cdm.product.common.schedule.metafields.ReferenceWithMetaCalculationPeriod
 import cdm.product.common.schedule.metafields.ReferenceWithMetaPaymentDates
 import cdm.product.common.settlement.*
 import cdm.product.common.settlement.metafields.*
-import cdm.product.template.EquityPayout
-import cdm.product.template.OptionPayout
-import cdm.product.template.Payout
-import cdm.product.template.SecurityPayout
-import cdm.product.template.metafields.ReferenceWithMetaEquityPayout
-import cdm.product.template.metafields.ReferenceWithMetaOptionPayout
-import cdm.product.template.metafields.ReferenceWithMetaPayout
-import cdm.product.template.metafields.ReferenceWithMetaSecurityPayout
+import cdm.product.template.*
+import cdm.product.template.metafields.*
 import com.rosetta.model.metafields.FieldWithMetaDate
 import com.rosetta.model.metafields.FieldWithMetaString
 import com.rosetta.model.metafields.MetaFields
@@ -77,8 +71,8 @@ import com.rosetta.model.metafields.MetaFields
 fun ReferenceWithMetaParty.ReferenceWithMetaPartyBuilder.value(f: Party.PartyBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaBusinessDayAdjustments.ReferenceWithMetaBusinessDayAdjustmentsBuilder.value(f: BusinessDayAdjustments.BusinessDayAdjustmentsBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaTrade.ReferenceWithMetaTradeBuilder.value(f: Trade.TradeBuilder.() -> Unit) = orCreateValue.apply(f)
-fun ReferenceWithMetaBusinessCenters.ReferenceWithMetaBusinessCentersBuilder.value(f: BusinessCenters.BusinessCentersBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaTradeState.ReferenceWithMetaTradeStateBuilder.value(f: TradeState.TradeStateBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaBusinessCenters.ReferenceWithMetaBusinessCentersBuilder.value(f: BusinessCenters.BusinessCentersBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaCalculationPeriodDates.ReferenceWithMetaCalculationPeriodDatesBuilder.value(f: CalculationPeriodDates.CalculationPeriodDatesBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaPaymentDates.ReferenceWithMetaPaymentDatesBuilder.value(f: PaymentDates.PaymentDatesBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaProductIdentifier.ReferenceWithMetaProductIdentifierBuilder.value(f: ProductIdentifier.ProductIdentifierBuilder.() -> Unit) = orCreateValue.apply(f)
@@ -104,10 +98,9 @@ fun ReferenceWithMetaProtectionTerms.ReferenceWithMetaProtectionTermsBuilder.val
 fun ReferenceWithMetaObservation.ReferenceWithMetaObservationBuilder.value(f: Observation.ObservationBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaPayout.ReferenceWithMetaPayoutBuilder.value(f: Payout.PayoutBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaResolvablePayoutQuantity.ReferenceWithMetaResolvablePayoutQuantityBuilder.value(f: ResolvablePayoutQuantity.ResolvablePayoutQuantityBuilder.() -> Unit) = orCreateValue.apply(f)
-fun ReferenceWithMetaOptionSettlement.ReferenceWithMetaOptionSettlementBuilder.value(f: OptionSettlement.OptionSettlementBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaSecurityFinancePayout.ReferenceWithMetaSecurityFinancePayoutBuilder.value(f: SecurityFinancePayout.SecurityFinancePayoutBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaSecurityPayout.ReferenceWithMetaSecurityPayoutBuilder.value(f: SecurityPayout.SecurityPayoutBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaSettlementTerms.ReferenceWithMetaSettlementTermsBuilder.value(f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = orCreateValue.apply(f)
-fun ReferenceWithMetaPriceQuantity.ReferenceWithMetaPriceQuantityBuilder.value(f: PriceQuantity.PriceQuantityBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaCreditEvents.ReferenceWithMetaCreditEventsBuilder.value(f: CreditEvents.CreditEventsBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaString.FieldWithMetaStringBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaAccountTypeEnum.FieldWithMetaAccountTypeEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)

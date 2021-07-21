@@ -1,6 +1,6 @@
 /**
  * This file is auto-generated from the ISDA Common Domain Model, do not edit.
- * Version: 2.111.0
+ * Version: 2.116.0
  */
 
 package com.github.vjuge.cdmdsl
@@ -49,7 +49,6 @@ import cdm.product.common.schedule.*
 import cdm.product.common.schedule.metafields.ReferenceWithMetaCalculationPeriodDates
 import cdm.product.common.schedule.metafields.ReferenceWithMetaPaymentDates
 import cdm.product.common.settlement.*
-import cdm.product.common.settlement.metafields.ReferenceWithMetaOptionSettlement
 import cdm.product.common.settlement.metafields.ReferenceWithMetaCashSettlementTerms
 import cdm.product.common.settlement.metafields.ReferenceWithMetaCashflow
 import cdm.base.math.metafields.ReferenceWithMetaQuantity
@@ -162,9 +161,11 @@ fun AgreementTerms.AgreementTermsBuilder.counterparty(index: Int, f: Counterpart
 fun AllocationBreakdown.AllocationBreakdownBuilder.account(f: Account.AccountBuilder.() -> Unit) = orCreateAccount.apply(f)
 fun AllocationBreakdown.AllocationBreakdownBuilder.allocationTradeId(f: Identifier.IdentifierBuilder.() -> Unit) = addAllocationTradeId(Identifier.IdentifierBuilderImpl().apply(f).build())
 fun AllocationBreakdown.AllocationBreakdownBuilder.allocationTradeId(index: Int, f: Identifier.IdentifierBuilder.() -> Unit) = getOrCreateAllocationTradeId(index).apply(f)
+fun AllocationBreakdown.AllocationBreakdownBuilder.ancillaryParty(f: PartyRole.PartyRoleBuilder.() -> Unit) = orCreateAncillaryParty.apply(f)
 fun AllocationBreakdown.AllocationBreakdownBuilder.collateral(f: Collateral.CollateralBuilder.() -> Unit) = orCreateCollateral.apply(f)
-fun AllocationBreakdown.AllocationBreakdownBuilder.partyReference(f: ReferenceWithMetaParty.ReferenceWithMetaPartyBuilder.() -> Unit) = orCreatePartyReference.apply(f)
-fun AllocationBreakdown.AllocationBreakdownBuilder.quantity(f: Quantity.QuantityBuilder.() -> Unit) = orCreateQuantity.apply(f)
+fun AllocationBreakdown.AllocationBreakdownBuilder.counterparty(f: Counterparty.CounterpartyBuilder.() -> Unit) = orCreateCounterparty.apply(f)
+fun AllocationBreakdown.AllocationBreakdownBuilder.quantity(f: Quantity.QuantityBuilder.() -> Unit) = addQuantity(Quantity.QuantityBuilderImpl().apply(f).build())
+fun AllocationBreakdown.AllocationBreakdownBuilder.quantity(index: Int, f: Quantity.QuantityBuilder.() -> Unit) = getOrCreateQuantity(index).apply(f)
 
 fun AllocationInstruction.AllocationInstructionBuilder.breakdowns(f: AllocationBreakdown.AllocationBreakdownBuilder.() -> Unit) = addBreakdowns(AllocationBreakdown.AllocationBreakdownBuilderImpl().apply(f).build())
 fun AllocationInstruction.AllocationInstructionBuilder.breakdowns(index: Int, f: AllocationBreakdown.AllocationBreakdownBuilder.() -> Unit) = getOrCreateBreakdowns(index).apply(f)
@@ -258,6 +259,24 @@ fun BermudaExercise.BermudaExerciseBuilder.multipleExercise(f: MultipleExercise.
 fun BermudaExercise.BermudaExerciseBuilder.relevantUnderlyingDate(f: AdjustableOrRelativeDates.AdjustableOrRelativeDatesBuilder.() -> Unit) = orCreateRelevantUnderlyingDate.apply(f)
 
 
+
+
+fun BillingInstruction.BillingInstructionBuilder.billingRecordInstruction(f: BillingRecordInstruction.BillingRecordInstructionBuilder.() -> Unit) = addBillingRecordInstruction(BillingRecordInstruction.BillingRecordInstructionBuilderImpl().apply(f).build())
+fun BillingInstruction.BillingInstructionBuilder.billingRecordInstruction(index: Int, f: BillingRecordInstruction.BillingRecordInstructionBuilder.() -> Unit) = getOrCreateBillingRecordInstruction(index).apply(f)
+fun BillingInstruction.BillingInstructionBuilder.billingSummary(f: BillingSummaryInstruction.BillingSummaryInstructionBuilder.() -> Unit) = addBillingSummary(BillingSummaryInstruction.BillingSummaryInstructionBuilderImpl().apply(f).build())
+fun BillingInstruction.BillingInstructionBuilder.billingSummary(index: Int, f: BillingSummaryInstruction.BillingSummaryInstructionBuilder.() -> Unit) = getOrCreateBillingSummary(index).apply(f)
+fun BillingInstruction.BillingInstructionBuilder.receivingParty(f: Party.PartyBuilder.() -> Unit) = orCreateReceivingParty.apply(f)
+fun BillingInstruction.BillingInstructionBuilder.sendingParty(f: Party.PartyBuilder.() -> Unit) = orCreateSendingParty.apply(f)
+
+fun BillingRecord.BillingRecordBuilder.minimumFee(f: Money.MoneyBuilder.() -> Unit) = orCreateMinimumFee.apply(f)
+fun BillingRecord.BillingRecordBuilder.recordTransfer(f: Transfer.TransferBuilder.() -> Unit) = orCreateRecordTransfer.apply(f)
+fun BillingRecord.BillingRecordBuilder.tradeState(f: ReferenceWithMetaTradeState.ReferenceWithMetaTradeStateBuilder.() -> Unit) = orCreateTradeState.apply(f)
+
+fun BillingRecordInstruction.BillingRecordInstructionBuilder.observation(f: Observation.ObservationBuilder.() -> Unit) = addObservation(Observation.ObservationBuilderImpl().apply(f).build())
+fun BillingRecordInstruction.BillingRecordInstructionBuilder.observation(index: Int, f: Observation.ObservationBuilder.() -> Unit) = getOrCreateObservation(index).apply(f)
+fun BillingRecordInstruction.BillingRecordInstructionBuilder.tradeState(f: ReferenceWithMetaTradeState.ReferenceWithMetaTradeStateBuilder.() -> Unit) = orCreateTradeState.apply(f)
+
+fun BillingSummary.BillingSummaryBuilder.summaryTransfer(f: Transfer.TransferBuilder.() -> Unit) = orCreateSummaryTransfer.apply(f)
 
 
 
@@ -354,21 +373,10 @@ fun CancelableProvisionAdjustedDates.CancelableProvisionAdjustedDatesBuilder.can
 
 fun CancellationEvent.CancellationEventBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 
-fun CashPriceMethod.CashPriceMethodBuilder.cashSettlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateCashSettlementCurrency.apply(f)
-fun CashPriceMethod.CashPriceMethodBuilder.cashSettlementReferenceBanks(f: CashSettlementReferenceBanks.CashSettlementReferenceBanksBuilder.() -> Unit) = orCreateCashSettlementReferenceBanks.apply(f)
-
-fun CashSettlementPaymentDate.CashSettlementPaymentDateBuilder.adjustableDates(f: AdjustableDates.AdjustableDatesBuilder.() -> Unit) = orCreateAdjustableDates.apply(f)
-fun CashSettlementPaymentDate.CashSettlementPaymentDateBuilder.businessDateRange(f: BusinessDateRange.BusinessDateRangeBuilder.() -> Unit) = orCreateBusinessDateRange.apply(f)
-fun CashSettlementPaymentDate.CashSettlementPaymentDateBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
-fun CashSettlementPaymentDate.CashSettlementPaymentDateBuilder.relativeDate(f: RelativeDateOffset.RelativeDateOffsetBuilder.() -> Unit) = orCreateRelativeDate.apply(f)
-
-fun CashSettlementReferenceBanks.CashSettlementReferenceBanksBuilder.referenceBank(f: ReferenceBank.ReferenceBankBuilder.() -> Unit) = addReferenceBank(ReferenceBank.ReferenceBankBuilderImpl().apply(f).build())
-fun CashSettlementReferenceBanks.CashSettlementReferenceBanksBuilder.referenceBank(index: Int, f: ReferenceBank.ReferenceBankBuilder.() -> Unit) = getOrCreateReferenceBank(index).apply(f)
-
 fun CashSettlementTerms.CashSettlementTermsBuilder.cashSettlementAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateCashSettlementAmount.apply(f)
-fun CashSettlementTerms.CashSettlementTermsBuilder.minimumQuotationAmout(f: Money.MoneyBuilder.() -> Unit) = orCreateMinimumQuotationAmout.apply(f)
-fun CashSettlementTerms.CashSettlementTermsBuilder.quotationAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateQuotationAmount.apply(f)
+fun CashSettlementTerms.CashSettlementTermsBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun CashSettlementTerms.CashSettlementTermsBuilder.valuationDate(f: ValuationDate.ValuationDateBuilder.() -> Unit) = orCreateValuationDate.apply(f)
+fun CashSettlementTerms.CashSettlementTermsBuilder.valuationMethod(f: ValuationMethod.ValuationMethodBuilder.() -> Unit) = orCreateValuationMethod.apply(f)
 fun CashSettlementTerms.CashSettlementTermsBuilder.valuationTime(f: BusinessCenterTime.BusinessCenterTimeBuilder.() -> Unit) = orCreateValuationTime.apply(f)
 
 fun CashTransferBreakdown.CashTransferBreakdownBuilder.amount(f: Money.MoneyBuilder.() -> Unit) = orCreateAmount.apply(f)
@@ -382,7 +390,6 @@ fun CashTransferComponent.CashTransferComponentBuilder.payerReceiver(f: PartyRef
 fun Cashflow.CashflowBuilder.cashflowAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateCashflowAmount.apply(f)
 fun Cashflow.CashflowBuilder.cashflowDate(f: AdjustableOrAdjustedOrRelativeDate.AdjustableOrAdjustedOrRelativeDateBuilder.() -> Unit) = orCreateCashflowDate.apply(f)
 fun Cashflow.CashflowBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
-fun Cashflow.CashflowBuilder.payerReceiver(f: PayerReceiver.PayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
 fun Cashflow.CashflowBuilder.paymentDiscounting(f: PaymentDiscounting.PaymentDiscountingBuilder.() -> Unit) = orCreatePaymentDiscounting.apply(f)
 fun Cashflow.CashflowBuilder.premiumExpression(f: PremiumExpression.PremiumExpressionBuilder.() -> Unit) = orCreatePremiumExpression.apply(f)
 fun Cashflow.CashflowBuilder.presentValueAmount(f: Money.MoneyBuilder.() -> Unit) = orCreatePresentValueAmount.apply(f)
@@ -462,7 +469,6 @@ fun Commodity.CommodityBuilder.deliveryDateReference(f: DeliveryDateParameters.D
 
 fun CommodityPayout.CommodityPayoutBuilder.commodityPriceReturnTerms(f: CommodityPriceReturnTerms.CommodityPriceReturnTermsBuilder.() -> Unit) = orCreateCommodityPriceReturnTerms.apply(f)
 fun CommodityPayout.CommodityPayoutBuilder.pricingDates(f: PricingDates.PricingDatesBuilder.() -> Unit) = orCreatePricingDates.apply(f)
-fun CommodityPayout.CommodityPayoutBuilder.settlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateSettlementCurrency.apply(f)
 
 fun CommodityPriceReturnTerms.CommodityPriceReturnTermsBuilder.rollFeature(f: RollFeature.RollFeatureBuilder.() -> Unit) = orCreateRollFeature.apply(f)
 fun CommodityPriceReturnTerms.CommodityPriceReturnTermsBuilder.rounding(f: Rounding.RoundingBuilder.() -> Unit) = orCreateRounding.apply(f)
@@ -517,14 +523,16 @@ fun ContactInformation.ContactInformationBuilder.address(index: Int, f: Address.
 fun ContactInformation.ContactInformationBuilder.telephone(f: TelephoneNumber.TelephoneNumberBuilder.() -> Unit) = addTelephone(TelephoneNumber.TelephoneNumberBuilderImpl().apply(f).build())
 fun ContactInformation.ContactInformationBuilder.telephone(index: Int, f: TelephoneNumber.TelephoneNumberBuilder.() -> Unit) = getOrCreateTelephone(index).apply(f)
 
-fun ContractDetails.ContractDetailsBuilder.documentation(f: RelatedAgreement.RelatedAgreementBuilder.() -> Unit) = orCreateDocumentation.apply(f)
+fun ContractDetails.ContractDetailsBuilder.documentation(f: RelatedAgreement.RelatedAgreementBuilder.() -> Unit) = addDocumentation(RelatedAgreement.RelatedAgreementBuilderImpl().apply(f).build())
+fun ContractDetails.ContractDetailsBuilder.documentation(index: Int, f: RelatedAgreement.RelatedAgreementBuilder.() -> Unit) = getOrCreateDocumentation(index).apply(f)
 fun ContractDetails.ContractDetailsBuilder.governingLaw(f: FieldWithMetaGoverningLawEnum.FieldWithMetaGoverningLawEnumBuilder.() -> Unit) = orCreateGoverningLaw.apply(f)
 fun ContractDetails.ContractDetailsBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun ContractDetails.ContractDetailsBuilder.partyContractInformation(f: PartyContractInformation.PartyContractInformationBuilder.() -> Unit) = addPartyContractInformation(PartyContractInformation.PartyContractInformationBuilderImpl().apply(f).build())
 fun ContractDetails.ContractDetailsBuilder.partyContractInformation(index: Int, f: PartyContractInformation.PartyContractInformationBuilder.() -> Unit) = getOrCreatePartyContractInformation(index).apply(f)
 
 fun ContractFormationInstruction.ContractFormationInstructionBuilder.execution(f: TradeState.TradeStateBuilder.() -> Unit) = orCreateExecution.apply(f)
-fun ContractFormationInstruction.ContractFormationInstructionBuilder.legalAgreement(f: LegalAgreement.LegalAgreementBuilder.() -> Unit) = orCreateLegalAgreement.apply(f)
+fun ContractFormationInstruction.ContractFormationInstructionBuilder.legalAgreement(f: LegalAgreement.LegalAgreementBuilder.() -> Unit) = addLegalAgreement(LegalAgreement.LegalAgreementBuilderImpl().apply(f).build())
+fun ContractFormationInstruction.ContractFormationInstructionBuilder.legalAgreement(index: Int, f: LegalAgreement.LegalAgreementBuilder.() -> Unit) = getOrCreateLegalAgreement(index).apply(f)
 
 fun ContractFormationPrimitive.ContractFormationPrimitiveBuilder.after(f: TradeState.TradeStateBuilder.() -> Unit) = orCreateAfter.apply(f)
 fun ContractFormationPrimitive.ContractFormationPrimitiveBuilder.before(f: ReferenceWithMetaTradeState.ReferenceWithMetaTradeStateBuilder.() -> Unit) = orCreateBefore.apply(f)
@@ -568,6 +576,7 @@ fun CreditDefaultPayout.CreditDefaultPayoutBuilder.physicalSettlementTerms(f: Ph
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.physicalSettlementTerms(index: Int, f: PhysicalSettlementTerms.PhysicalSettlementTermsBuilder.() -> Unit) = getOrCreatePhysicalSettlementTerms(index).apply(f)
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.protectionTerms(f: ProtectionTerms.ProtectionTermsBuilder.() -> Unit) = addProtectionTerms(ProtectionTerms.ProtectionTermsBuilderImpl().apply(f).build())
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.protectionTerms(index: Int, f: ProtectionTerms.ProtectionTermsBuilder.() -> Unit) = getOrCreateProtectionTerms(index).apply(f)
+fun CreditDefaultPayout.CreditDefaultPayoutBuilder.settlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateSettlementCurrency.apply(f)
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.transactedPrice(f: TransactedPrice.TransactedPriceBuilder.() -> Unit) = orCreateTransactedPrice.apply(f)
 
 fun CreditEventNotice.CreditEventNoticeBuilder.notifyingParty(f: NotifyingParty.NotifyingPartyBuilder.() -> Unit) = orCreateNotifyingParty.apply(f)
@@ -653,14 +662,6 @@ fun CreditSupportProviderElection.CreditSupportProviderElectionBuilder.creditSup
 fun CreditSupportProviderElection.CreditSupportProviderElectionBuilder.creditSupportProvider(index: Int, f: LegalEntity.LegalEntityBuilder.() -> Unit) = getOrCreateCreditSupportProvider(index).apply(f)
 fun CreditSupportProviderElection.CreditSupportProviderElectionBuilder.party(f: Party.PartyBuilder.() -> Unit) = orCreateParty.apply(f)
 
-fun CrossCurrencyMethod.CrossCurrencyMethodBuilder.cashSettlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = addCashSettlementCurrency(FieldWithMetaString.FieldWithMetaStringBuilderImpl().apply(f).build())
-fun CrossCurrencyMethod.CrossCurrencyMethodBuilder.cashSettlementCurrency(index: Int, f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = getOrCreateCashSettlementCurrency(index).apply(f)
-fun CrossCurrencyMethod.CrossCurrencyMethodBuilder.cashSettlementReferenceBanks(f: CashSettlementReferenceBanks.CashSettlementReferenceBanksBuilder.() -> Unit) = addCashSettlementReferenceBanks(CashSettlementReferenceBanks.CashSettlementReferenceBanksBuilderImpl().apply(f).build())
-fun CrossCurrencyMethod.CrossCurrencyMethodBuilder.cashSettlementReferenceBanks(index: Int, f: CashSettlementReferenceBanks.CashSettlementReferenceBanksBuilder.() -> Unit) = getOrCreateCashSettlementReferenceBanks(index).apply(f)
-
-fun CrossCurrencyTerms.CrossCurrencyTermsBuilder.principalExchanges(f: PrincipalExchanges.PrincipalExchangesBuilder.() -> Unit) = orCreatePrincipalExchanges.apply(f)
-fun CrossCurrencyTerms.CrossCurrencyTermsBuilder.settlementProvision(f: SettlementProvision.SettlementProvisionBuilder.() -> Unit) = orCreateSettlementProvision.apply(f)
-
 
 fun Curve.CurveBuilder.commodityCurve(f: FieldWithMetaCommodityReferencePriceEnum.FieldWithMetaCommodityReferencePriceEnumBuilder.() -> Unit) = orCreateCommodityCurve.apply(f)
 fun Curve.CurveBuilder.interestRateCurve(f: InterestRateCurve.InterestRateCurveBuilder.() -> Unit) = orCreateInterestRateCurve.apply(f)
@@ -715,6 +716,10 @@ fun DecreaseInstruction.DecreaseInstructionBuilder.fee(f: SettlementTerms.Settle
 fun DecreaseInstruction.DecreaseInstructionBuilder.tradeLot(f: TradeLot.TradeLotBuilder.() -> Unit) = addTradeLot(TradeLot.TradeLotBuilderImpl().apply(f).build())
 fun DecreaseInstruction.DecreaseInstructionBuilder.tradeLot(index: Int, f: TradeLot.TradeLotBuilder.() -> Unit) = getOrCreateTradeLot(index).apply(f)
 fun DecreaseInstruction.DecreaseInstructionBuilder.tradeState(f: ReferenceWithMetaTradeState.ReferenceWithMetaTradeStateBuilder.() -> Unit) = orCreateTradeState.apply(f)
+
+fun DecreasedTrade.DecreasedTradeBuilder.quantity(f: Quantity.QuantityBuilder.() -> Unit) = addQuantity(Quantity.QuantityBuilderImpl().apply(f).build())
+fun DecreasedTrade.DecreasedTradeBuilder.quantity(index: Int, f: Quantity.QuantityBuilder.() -> Unit) = getOrCreateQuantity(index).apply(f)
+fun DecreasedTrade.DecreasedTradeBuilder.tradeState(f: TradeState.TradeStateBuilder.() -> Unit) = orCreateTradeState.apply(f)
 
 fun DeliverableObligations.DeliverableObligationsBuilder.assignableLoan(f: PCDeliverableObligationCharac.PCDeliverableObligationCharacBuilder.() -> Unit) = orCreateAssignableLoan.apply(f)
 fun DeliverableObligations.DeliverableObligationsBuilder.consentRequiredLoan(f: PCDeliverableObligationCharac.PCDeliverableObligationCharacBuilder.() -> Unit) = orCreateConsentRequiredLoan.apply(f)
@@ -826,10 +831,8 @@ fun EquityPayout.EquityPayoutBuilder.calculationPeriodDates(f: CalculationPeriod
 fun EquityPayout.EquityPayoutBuilder.dividendReturnTerms(f: DividendReturnTerms.DividendReturnTermsBuilder.() -> Unit) = orCreateDividendReturnTerms.apply(f)
 fun EquityPayout.EquityPayoutBuilder.fxFeature(f: FxFeature.FxFeatureBuilder.() -> Unit) = orCreateFxFeature.apply(f)
 fun EquityPayout.EquityPayoutBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
-fun EquityPayout.EquityPayoutBuilder.payerReceiver(f: PayerReceiver.PayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
 fun EquityPayout.EquityPayoutBuilder.paymentDates(f: PaymentDates.PaymentDatesBuilder.() -> Unit) = orCreatePaymentDates.apply(f)
 fun EquityPayout.EquityPayoutBuilder.priceReturnTerms(f: PriceReturnTerms.PriceReturnTermsBuilder.() -> Unit) = orCreatePriceReturnTerms.apply(f)
-fun EquityPayout.EquityPayoutBuilder.settlementTerms(f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = orCreateSettlementTerms.apply(f)
 fun EquityPayout.EquityPayoutBuilder.underlier(f: Product.ProductBuilder.() -> Unit) = orCreateUnderlier.apply(f)
 
 fun EquitySwapMasterConfirmation2018.EquitySwapMasterConfirmation2018Builder.equityCalculationPeriod(f: CalculationPeriodDates.CalculationPeriodDatesBuilder.() -> Unit) = orCreateEquityCalculationPeriod.apply(f)
@@ -876,9 +879,6 @@ fun ExchangeRate.ExchangeRateBuilder.crossRate(index: Int, f: CrossRate.CrossRat
 
 fun ExctgPrsn.ExctgPrsnBuilder.prsn(f: Prsn.PrsnBuilder.() -> Unit) = orCreatePrsn.apply(f)
 
-fun ExecutingEntity.ExecutingEntityBuilder.addressOfBranch(f: Address.AddressBuilder.() -> Unit) = orCreateAddressOfBranch.apply(f)
-fun ExecutingEntity.ExecutingEntityBuilder.addressOfIncorporation(f: Address.AddressBuilder.() -> Unit) = orCreateAddressOfIncorporation.apply(f)
-
 fun ExecutionDetails.ExecutionDetailsBuilder.executionVenue(f: LegalEntity.LegalEntityBuilder.() -> Unit) = orCreateExecutionVenue.apply(f)
 fun ExecutionDetails.ExecutionDetailsBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 
@@ -894,8 +894,8 @@ fun ExecutionInstruction.ExecutionInstructionBuilder.partyRoles(index: Int, f: P
 fun ExecutionInstruction.ExecutionInstructionBuilder.priceQuantity(f: PriceQuantity.PriceQuantityBuilder.() -> Unit) = addPriceQuantity(PriceQuantity.PriceQuantityBuilderImpl().apply(f).build())
 fun ExecutionInstruction.ExecutionInstructionBuilder.priceQuantity(index: Int, f: PriceQuantity.PriceQuantityBuilder.() -> Unit) = getOrCreatePriceQuantity(index).apply(f)
 fun ExecutionInstruction.ExecutionInstructionBuilder.product(f: Product.ProductBuilder.() -> Unit) = orCreateProduct.apply(f)
-fun ExecutionInstruction.ExecutionInstructionBuilder.settlementTerms(f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = addSettlementTerms(SettlementTerms.SettlementTermsBuilderImpl().apply(f).build())
-fun ExecutionInstruction.ExecutionInstructionBuilder.settlementTerms(index: Int, f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = getOrCreateSettlementTerms(index).apply(f)
+fun ExecutionInstruction.ExecutionInstructionBuilder.settlementInstructions(f: SettlementInstructions.SettlementInstructionsBuilder.() -> Unit) = addSettlementInstructions(SettlementInstructions.SettlementInstructionsBuilderImpl().apply(f).build())
+fun ExecutionInstruction.ExecutionInstructionBuilder.settlementInstructions(index: Int, f: SettlementInstructions.SettlementInstructionsBuilder.() -> Unit) = getOrCreateSettlementInstructions(index).apply(f)
 fun ExecutionInstruction.ExecutionInstructionBuilder.tradeIdentifier(f: Identifier.IdentifierBuilder.() -> Unit) = addTradeIdentifier(Identifier.IdentifierBuilderImpl().apply(f).build())
 fun ExecutionInstruction.ExecutionInstructionBuilder.tradeIdentifier(index: Int, f: Identifier.IdentifierBuilder.() -> Unit) = getOrCreateTradeIdentifier(index).apply(f)
 
@@ -971,7 +971,6 @@ fun FinalCalculationPeriodDateAdjustment.FinalCalculationPeriodDateAdjustmentBui
 fun FinalCalculationPeriodDateAdjustment.FinalCalculationPeriodDateAdjustmentBuilder.swapStreamReference(f: ReferenceWithMetaInterestRatePayout.ReferenceWithMetaInterestRatePayoutBuilder.() -> Unit) = orCreateSwapStreamReference.apply(f)
 
 fun FixedForwardPayout.FixedForwardPayoutBuilder.fixedPrice(f: ReferenceWithMetaPrice.ReferenceWithMetaPriceBuilder.() -> Unit) = orCreateFixedPrice.apply(f)
-fun FixedForwardPayout.FixedForwardPayoutBuilder.payerReceiver(f: PayerReceiver.PayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
 fun FixedForwardPayout.FixedForwardPayoutBuilder.paymentDates(f: PaymentDates.PaymentDatesBuilder.() -> Unit) = orCreatePaymentDates.apply(f)
 
 fun FixedRateSpecification.FixedRateSpecificationBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
@@ -1010,7 +1009,7 @@ fun ForeignExchange.ForeignExchangeBuilder.exchangedCurrency1(f: Cashflow.Cashfl
 fun ForeignExchange.ForeignExchangeBuilder.exchangedCurrency2(f: Cashflow.CashflowBuilder.() -> Unit) = orCreateExchangedCurrency2.apply(f)
 fun ForeignExchange.ForeignExchangeBuilder.tenorPeriod(f: Period.PeriodBuilder.() -> Unit) = orCreateTenorPeriod.apply(f)
 
-fun ForwardPayout.ForwardPayoutBuilder.settlementTerms(f: OptionSettlement.OptionSettlementBuilder.() -> Unit) = orCreateSettlementTerms.apply(f)
+fun ForwardPayout.ForwardPayoutBuilder.settlementTerms(f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = orCreateSettlementTerms.apply(f)
 fun ForwardPayout.ForwardPayoutBuilder.underlier(f: Product.ProductBuilder.() -> Unit) = orCreateUnderlier.apply(f)
 
 fun FrenchLawAddendum.FrenchLawAddendumBuilder.partyElection(f: FrenchLawAddendumElection.FrenchLawAddendumElectionBuilder.() -> Unit) = addPartyElection(FrenchLawAddendumElection.FrenchLawAddendumElectionBuilderImpl().apply(f).build())
@@ -1099,6 +1098,10 @@ fun IncreaseInstruction.IncreaseInstructionBuilder.fee(f: SettlementTerms.Settle
 fun IncreaseInstruction.IncreaseInstructionBuilder.tradeLot(f: TradeLot.TradeLotBuilder.() -> Unit) = orCreateTradeLot.apply(f)
 fun IncreaseInstruction.IncreaseInstructionBuilder.tradeState(f: ReferenceWithMetaTradeState.ReferenceWithMetaTradeStateBuilder.() -> Unit) = orCreateTradeState.apply(f)
 
+fun IncreasedTrade.IncreasedTradeBuilder.quantity(f: Quantity.QuantityBuilder.() -> Unit) = addQuantity(Quantity.QuantityBuilderImpl().apply(f).build())
+fun IncreasedTrade.IncreasedTradeBuilder.quantity(index: Int, f: Quantity.QuantityBuilder.() -> Unit) = getOrCreateQuantity(index).apply(f)
+fun IncreasedTrade.IncreasedTradeBuilder.tradeState(f: TradeState.TradeStateBuilder.() -> Unit) = orCreateTradeState.apply(f)
+
 fun IndependentAmount.IndependentAmountBuilder.paymentDetail(f: PaymentDetail.PaymentDetailBuilder.() -> Unit) = addPaymentDetail(PaymentDetail.PaymentDetailBuilderImpl().apply(f).build())
 fun IndependentAmount.IndependentAmountBuilder.paymentDetail(index: Int, f: PaymentDetail.PaymentDetailBuilder.() -> Unit) = getOrCreatePaymentDetail(index).apply(f)
 
@@ -1162,13 +1165,12 @@ fun InterestRateCurve.InterestRateCurveBuilder.tenor(f: Period.PeriodBuilder.() 
 fun InterestRatePayout.InterestRatePayoutBuilder.bondReference(f: BondReference.BondReferenceBuilder.() -> Unit) = orCreateBondReference.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.calculationPeriodDates(f: CalculationPeriodDates.CalculationPeriodDatesBuilder.() -> Unit) = orCreateCalculationPeriodDates.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.cashflowRepresentation(f: CashflowRepresentation.CashflowRepresentationBuilder.() -> Unit) = orCreateCashflowRepresentation.apply(f)
-fun InterestRatePayout.InterestRatePayoutBuilder.crossCurrencyTerms(f: CrossCurrencyTerms.CrossCurrencyTermsBuilder.() -> Unit) = orCreateCrossCurrencyTerms.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.dayCountFraction(f: FieldWithMetaDayCountFractionEnum.FieldWithMetaDayCountFractionEnumBuilder.() -> Unit) = orCreateDayCountFraction.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.discountingMethod(f: DiscountingMethod.DiscountingMethodBuilder.() -> Unit) = orCreateDiscountingMethod.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
-fun InterestRatePayout.InterestRatePayoutBuilder.payerReceiver(f: PayerReceiver.PayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.paymentDate(f: AdjustableDate.AdjustableDateBuilder.() -> Unit) = orCreatePaymentDate.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.paymentDates(f: PaymentDates.PaymentDatesBuilder.() -> Unit) = orCreatePaymentDates.apply(f)
+fun InterestRatePayout.InterestRatePayoutBuilder.principalExchanges(f: PrincipalExchanges.PrincipalExchangesBuilder.() -> Unit) = orCreatePrincipalExchanges.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.rateSpecification(f: RateSpecification.RateSpecificationBuilder.() -> Unit) = orCreateRateSpecification.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.resetDates(f: ResetDates.ResetDatesBuilder.() -> Unit) = orCreateResetDates.apply(f)
 fun InterestRatePayout.InterestRatePayoutBuilder.stubPeriod(f: StubPeriod.StubPeriodBuilder.() -> Unit) = orCreateStubPeriod.apply(f)
@@ -1263,7 +1265,7 @@ fun Loan.LoanBuilder.tranche(f: FieldWithMetaString.FieldWithMetaStringBuilder.(
 fun MakeWholeAmount.MakeWholeAmountBuilder.earlyCallDate(f: FieldWithMetaDate.FieldWithMetaDateBuilder.() -> Unit) = orCreateEarlyCallDate.apply(f)
 
 fun MandatoryEarlyTermination.MandatoryEarlyTerminationBuilder.calculationAgent(f: CalculationAgent.CalculationAgentBuilder.() -> Unit) = orCreateCalculationAgent.apply(f)
-fun MandatoryEarlyTermination.MandatoryEarlyTerminationBuilder.cashSettlement(f: OptionCashSettlement.OptionCashSettlementBuilder.() -> Unit) = orCreateCashSettlement.apply(f)
+fun MandatoryEarlyTermination.MandatoryEarlyTerminationBuilder.cashSettlement(f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = orCreateCashSettlement.apply(f)
 fun MandatoryEarlyTermination.MandatoryEarlyTerminationBuilder.mandatoryEarlyTerminationAdjustedDates(f: MandatoryEarlyTerminationAdjustedDates.MandatoryEarlyTerminationAdjustedDatesBuilder.() -> Unit) = orCreateMandatoryEarlyTerminationAdjustedDates.apply(f)
 fun MandatoryEarlyTermination.MandatoryEarlyTerminationBuilder.mandatoryEarlyTerminationDate(f: AdjustableDate.AdjustableDateBuilder.() -> Unit) = orCreateMandatoryEarlyTerminationDate.apply(f)
 fun MandatoryEarlyTermination.MandatoryEarlyTerminationBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
@@ -1331,12 +1333,6 @@ fun New.NewBuilder.tx(f: Tx.TxBuilder.() -> Unit) = orCreateTx.apply(f)
 fun Nm.NmBuilder.refRate(f: RefRate.RefRateBuilder.() -> Unit) = orCreateRefRate.apply(f)
 fun Nm.NmBuilder.term(f: Term.TermBuilder.() -> Unit) = orCreateTerm.apply(f)
 
-fun NonDeliverableSettlement.NonDeliverableSettlementBuilder.fxFixingDate(f: FxFixingDate.FxFixingDateBuilder.() -> Unit) = orCreateFxFixingDate.apply(f)
-fun NonDeliverableSettlement.NonDeliverableSettlementBuilder.fxFixingSchedule(f: AdjustableDates.AdjustableDatesBuilder.() -> Unit) = orCreateFxFixingSchedule.apply(f)
-fun NonDeliverableSettlement.NonDeliverableSettlementBuilder.priceSourceDisruption(f: PriceSourceDisruption.PriceSourceDisruptionBuilder.() -> Unit) = orCreatePriceSourceDisruption.apply(f)
-fun NonDeliverableSettlement.NonDeliverableSettlementBuilder.referenceCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateReferenceCurrency.apply(f)
-fun NonDeliverableSettlement.NonDeliverableSettlementBuilder.settlementRateOption(f: FieldWithMetaSettlementRateOptionEnum.FieldWithMetaSettlementRateOptionEnumBuilder.() -> Unit) = orCreateSettlementRateOption.apply(f)
-
 
 fun NonNegativeQuantitySchedule.NonNegativeQuantityScheduleBuilder.initialQuantity(f: ReferenceWithMetaQuantity.ReferenceWithMetaQuantityBuilder.() -> Unit) = orCreateInitialQuantity.apply(f)
 fun NonNegativeQuantitySchedule.NonNegativeQuantityScheduleBuilder.stepSchedule(f: NonNegativeStepSchedule.NonNegativeStepScheduleBuilder.() -> Unit) = orCreateStepSchedule.apply(f)
@@ -1373,7 +1369,7 @@ fun ObservationDates.ObservationDatesBuilder.observationSchedule(f: ObservationS
 fun ObservationDates.ObservationDatesBuilder.observationSchedule(index: Int, f: ObservationSchedule.ObservationScheduleBuilder.() -> Unit) = getOrCreateObservationSchedule(index).apply(f)
 fun ObservationDates.ObservationDatesBuilder.parametricSchedule(f: PeriodicDates.PeriodicDatesBuilder.() -> Unit) = orCreateParametricSchedule.apply(f)
 
-fun ObservationIdentifier.ObservationIdentifierBuilder.determinationMethodology(f: DeterminationMethodolgy.DeterminationMethodolgyBuilder.() -> Unit) = orCreateDeterminationMethodology.apply(f)
+fun ObservationIdentifier.ObservationIdentifierBuilder.determinationMethodology(f: DeterminationMethodology.DeterminationMethodologyBuilder.() -> Unit) = orCreateDeterminationMethodology.apply(f)
 fun ObservationIdentifier.ObservationIdentifierBuilder.informationSource(f: InformationSource.InformationSourceBuilder.() -> Unit) = orCreateInformationSource.apply(f)
 fun ObservationIdentifier.ObservationIdentifierBuilder.observable(f: Observable.ObservableBuilder.() -> Unit) = orCreateObservable.apply(f)
 fun ObservationIdentifier.ObservationIdentifierBuilder.observationTime(f: TimeZone.TimeZoneBuilder.() -> Unit) = orCreateObservationTime.apply(f)
@@ -1381,7 +1377,6 @@ fun ObservationIdentifier.ObservationIdentifierBuilder.observationTime(f: TimeZo
 fun ObservationPayout.ObservationPayoutBuilder.calculationPeriodDates(f: CalculationPeriodDates.CalculationPeriodDatesBuilder.() -> Unit) = addCalculationPeriodDates(CalculationPeriodDates.CalculationPeriodDatesBuilderImpl().apply(f).build())
 fun ObservationPayout.ObservationPayoutBuilder.calculationPeriodDates(index: Int, f: CalculationPeriodDates.CalculationPeriodDatesBuilder.() -> Unit) = getOrCreateCalculationPeriodDates(index).apply(f)
 fun ObservationPayout.ObservationPayoutBuilder.fxFeature(f: FxFeature.FxFeatureBuilder.() -> Unit) = orCreateFxFeature.apply(f)
-fun ObservationPayout.ObservationPayoutBuilder.payerReceiver(f: PayerReceiver.PayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
 fun ObservationPayout.ObservationPayoutBuilder.paymentDates(f: PaymentDates.PaymentDatesBuilder.() -> Unit) = orCreatePaymentDates.apply(f)
 fun ObservationPayout.ObservationPayoutBuilder.underlier(f: Product.ProductBuilder.() -> Unit) = orCreateUnderlier.apply(f)
 
@@ -1392,23 +1387,10 @@ fun ObservationSource.ObservationSourceBuilder.informationSource(f: InformationS
 
 
 
-fun OptionCashSettlement.OptionCashSettlementBuilder.cashPriceAlternateMethod(f: CashPriceMethod.CashPriceMethodBuilder.() -> Unit) = orCreateCashPriceAlternateMethod.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.cashPriceMethod(f: CashPriceMethod.CashPriceMethodBuilder.() -> Unit) = orCreateCashPriceMethod.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.cashSettlementPaymentDate(f: CashSettlementPaymentDate.CashSettlementPaymentDateBuilder.() -> Unit) = orCreateCashSettlementPaymentDate.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.cashSettlementValuationDate(f: RelativeDateOffset.RelativeDateOffsetBuilder.() -> Unit) = orCreateCashSettlementValuationDate.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.cashSettlementValuationTime(f: BusinessCenterTime.BusinessCenterTimeBuilder.() -> Unit) = orCreateCashSettlementValuationTime.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.collateralizedCashPriceMethod(f: YieldCurveMethod.YieldCurveMethodBuilder.() -> Unit) = orCreateCollateralizedCashPriceMethod.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.crossCurrencyMethod(f: CrossCurrencyMethod.CrossCurrencyMethodBuilder.() -> Unit) = orCreateCrossCurrencyMethod.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.parYieldCurveAdjustedMethod(f: YieldCurveMethod.YieldCurveMethodBuilder.() -> Unit) = orCreateParYieldCurveAdjustedMethod.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.parYieldCurveUnadjustedMethod(f: YieldCurveMethod.YieldCurveMethodBuilder.() -> Unit) = orCreateParYieldCurveUnadjustedMethod.apply(f)
-fun OptionCashSettlement.OptionCashSettlementBuilder.zeroCouponYieldAdjustedMethod(f: YieldCurveMethod.YieldCurveMethodBuilder.() -> Unit) = orCreateZeroCouponYieldAdjustedMethod.apply(f)
-
 fun OptionDenomination.OptionDenominationBuilder.entitlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateEntitlementCurrency.apply(f)
 
 fun OptionExercise.OptionExerciseBuilder.exerciseProcedure(f: ExerciseProcedure.ExerciseProcedureBuilder.() -> Unit) = orCreateExerciseProcedure.apply(f)
 fun OptionExercise.OptionExerciseBuilder.optionStyle(f: OptionStyle.OptionStyleBuilder.() -> Unit) = orCreateOptionStyle.apply(f)
-fun OptionExercise.OptionExerciseBuilder.settlement(f: OptionSettlement.OptionSettlementBuilder.() -> Unit) = orCreateSettlement.apply(f)
 fun OptionExercise.OptionExerciseBuilder.strike(f: OptionStrike.OptionStrikeBuilder.() -> Unit) = orCreateStrike.apply(f)
 
 fun OptionFeature.OptionFeatureBuilder.averagingRateFeature(f: AveragingObservation.AveragingObservationBuilder.() -> Unit) = orCreateAveragingRateFeature.apply(f)
@@ -1429,10 +1411,6 @@ fun OptionPayout.OptionPayoutBuilder.underlier(f: Product.ProductBuilder.() -> U
 fun OptionProvision.OptionProvisionBuilder.cancelableProvision(f: CancelableProvision.CancelableProvisionBuilder.() -> Unit) = orCreateCancelableProvision.apply(f)
 fun OptionProvision.OptionProvisionBuilder.extendibleProvision(f: ExtendibleProvision.ExtendibleProvisionBuilder.() -> Unit) = orCreateExtendibleProvision.apply(f)
 
-fun OptionSettlement.OptionSettlementBuilder.cashSettlementTerms(f: OptionCashSettlement.OptionCashSettlementBuilder.() -> Unit) = orCreateCashSettlementTerms.apply(f)
-fun OptionSettlement.OptionSettlementBuilder.fxSettlementTerms(f: FxCashSettlement.FxCashSettlementBuilder.() -> Unit) = orCreateFxSettlementTerms.apply(f)
-fun OptionSettlement.OptionSettlementBuilder.physicalSettlementTerms(f: OptionPhysicalSettlement.OptionPhysicalSettlementBuilder.() -> Unit) = orCreatePhysicalSettlementTerms.apply(f)
-
 fun OptionStrike.OptionStrikeBuilder.averagingStrikeFeature(f: AveragingObservation.AveragingObservationBuilder.() -> Unit) = orCreateAveragingStrikeFeature.apply(f)
 fun OptionStrike.OptionStrikeBuilder.referenceSwapCurve(f: ReferenceSwapCurve.ReferenceSwapCurveBuilder.() -> Unit) = orCreateReferenceSwapCurve.apply(f)
 fun OptionStrike.OptionStrikeBuilder.strikePrice(f: Price.PriceBuilder.() -> Unit) = orCreateStrikePrice.apply(f)
@@ -1445,7 +1423,7 @@ fun OptionStyle.OptionStyleBuilder.europeanExercise(f: EuropeanExercise.European
 fun OptionalEarlyTermination.OptionalEarlyTerminationBuilder.americanExercise(f: AmericanExercise.AmericanExerciseBuilder.() -> Unit) = orCreateAmericanExercise.apply(f)
 fun OptionalEarlyTermination.OptionalEarlyTerminationBuilder.bermudaExercise(f: BermudaExercise.BermudaExerciseBuilder.() -> Unit) = orCreateBermudaExercise.apply(f)
 fun OptionalEarlyTermination.OptionalEarlyTerminationBuilder.calculationAgent(f: CalculationAgent.CalculationAgentBuilder.() -> Unit) = orCreateCalculationAgent.apply(f)
-fun OptionalEarlyTermination.OptionalEarlyTerminationBuilder.cashSettlement(f: OptionCashSettlement.OptionCashSettlementBuilder.() -> Unit) = orCreateCashSettlement.apply(f)
+fun OptionalEarlyTermination.OptionalEarlyTerminationBuilder.cashSettlement(f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = orCreateCashSettlement.apply(f)
 fun OptionalEarlyTermination.OptionalEarlyTerminationBuilder.europeanExercise(f: EuropeanExercise.EuropeanExerciseBuilder.() -> Unit) = orCreateEuropeanExercise.apply(f)
 fun OptionalEarlyTermination.OptionalEarlyTerminationBuilder.exerciseNotice(f: ExerciseNotice.ExerciseNoticeBuilder.() -> Unit) = addExerciseNotice(ExerciseNotice.ExerciseNoticeBuilderImpl().apply(f).build())
 fun OptionalEarlyTermination.OptionalEarlyTerminationBuilder.exerciseNotice(index: Int, f: ExerciseNotice.ExerciseNoticeBuilder.() -> Unit) = getOrCreateExerciseNotice(index).apply(f)
@@ -1573,7 +1551,9 @@ fun Payout.PayoutBuilder.securityFinancePayout(index: Int, f: SecurityFinancePay
 fun Payout.PayoutBuilder.securityPayout(f: SecurityPayout.SecurityPayoutBuilder.() -> Unit) = addSecurityPayout(SecurityPayout.SecurityPayoutBuilderImpl().apply(f).build())
 fun Payout.PayoutBuilder.securityPayout(index: Int, f: SecurityPayout.SecurityPayoutBuilder.() -> Unit) = getOrCreateSecurityPayout(index).apply(f)
 
+fun PayoutBase.PayoutBaseBuilder.payerReceiver(f: PayerReceiver.PayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
 fun PayoutBase.PayoutBaseBuilder.payoutQuantity(f: ResolvablePayoutQuantity.ResolvablePayoutQuantityBuilder.() -> Unit) = orCreatePayoutQuantity.apply(f)
+fun PayoutBase.PayoutBaseBuilder.settlementTerms(f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = orCreateSettlementTerms.apply(f)
 
 fun PercentageRule.PercentageRuleBuilder.notionalAmountReference(f: ReferenceWithMetaMoney.ReferenceWithMetaMoneyBuilder.() -> Unit) = orCreateNotionalAmountReference.apply(f)
 
@@ -1591,6 +1571,7 @@ fun PeriodicDates.PeriodicDatesBuilder.startDate(f: AdjustableOrRelativeDate.Adj
 
 
 fun PhysicalSettlementTerms.PhysicalSettlementTermsBuilder.deliverableObligations(f: DeliverableObligations.DeliverableObligationsBuilder.() -> Unit) = orCreateDeliverableObligations.apply(f)
+fun PhysicalSettlementTerms.PhysicalSettlementTermsBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun PhysicalSettlementTerms.PhysicalSettlementTermsBuilder.physicalSettlementPeriod(f: PhysicalSettlementPeriod.PhysicalSettlementPeriodBuilder.() -> Unit) = orCreatePhysicalSettlementPeriod.apply(f)
 
 fun Portfolio.PortfolioBuilder.aggregationParameters(f: AggregationParameters.AggregationParametersBuilder.() -> Unit) = orCreateAggregationParameters.apply(f)
@@ -1723,12 +1704,22 @@ fun RateSpecification.RateSpecificationBuilder.fixedRate(f: FixedRateSpecificati
 fun RateSpecification.RateSpecificationBuilder.floatingRate(f: FloatingRateSpecification.FloatingRateSpecificationBuilder.() -> Unit) = orCreateFloatingRate.apply(f)
 fun RateSpecification.RateSpecificationBuilder.inflationRate(f: InflationRateSpecification.InflationRateSpecificationBuilder.() -> Unit) = orCreateInflationRate.apply(f)
 
+fun ReallocationInstruction.ReallocationInstructionBuilder.breakdowns(f: AllocationBreakdown.AllocationBreakdownBuilder.() -> Unit) = addBreakdowns(AllocationBreakdown.AllocationBreakdownBuilderImpl().apply(f).build())
+fun ReallocationInstruction.ReallocationInstructionBuilder.breakdowns(index: Int, f: AllocationBreakdown.AllocationBreakdownBuilder.() -> Unit) = getOrCreateBreakdowns(index).apply(f)
+fun ReallocationInstruction.ReallocationInstructionBuilder.decrease(f: DecreasedTrade.DecreasedTradeBuilder.() -> Unit) = addDecrease(DecreasedTrade.DecreasedTradeBuilderImpl().apply(f).build())
+fun ReallocationInstruction.ReallocationInstructionBuilder.decrease(index: Int, f: DecreasedTrade.DecreasedTradeBuilder.() -> Unit) = getOrCreateDecrease(index).apply(f)
+fun ReallocationInstruction.ReallocationInstructionBuilder.increase(f: IncreasedTrade.IncreasedTradeBuilder.() -> Unit) = addIncrease(IncreasedTrade.IncreasedTradeBuilderImpl().apply(f).build())
+fun ReallocationInstruction.ReallocationInstructionBuilder.increase(index: Int, f: IncreasedTrade.IncreasedTradeBuilder.() -> Unit) = getOrCreateIncrease(index).apply(f)
+
 fun RecalculationOfValue.RecalculationOfValueBuilder.partyElection(f: RecalculationOfValueElection.RecalculationOfValueElectionBuilder.() -> Unit) = addPartyElection(RecalculationOfValueElection.RecalculationOfValueElectionBuilderImpl().apply(f).build())
 fun RecalculationOfValue.RecalculationOfValueBuilder.partyElection(index: Int, f: RecalculationOfValueElection.RecalculationOfValueElectionBuilder.() -> Unit) = getOrCreatePartyElection(index).apply(f)
 
 
 
 fun ReferenceBank.ReferenceBankBuilder.referenceBankId(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateReferenceBankId.apply(f)
+
+fun ReferenceBanks.ReferenceBanksBuilder.referenceBank(f: ReferenceBank.ReferenceBankBuilder.() -> Unit) = addReferenceBank(ReferenceBank.ReferenceBankBuilderImpl().apply(f).build())
+fun ReferenceBanks.ReferenceBanksBuilder.referenceBank(index: Int, f: ReferenceBank.ReferenceBankBuilder.() -> Unit) = getOrCreateReferenceBank(index).apply(f)
 
 fun ReferenceInformation.ReferenceInformationBuilder.referenceEntity(f: LegalEntity.LegalEntityBuilder.() -> Unit) = orCreateReferenceEntity.apply(f)
 fun ReferenceInformation.ReferenceInformationBuilder.referenceObligation(f: ReferenceObligation.ReferenceObligationBuilder.() -> Unit) = addReferenceObligation(ReferenceObligation.ReferenceObligationBuilderImpl().apply(f).build())
@@ -1818,6 +1809,9 @@ fun Restructuring.RestructuringBuilder.restructuringType(f: FieldWithMetaRestruc
 
 
 
+fun ReturnInstruction.ReturnInstructionBuilder.quantity(f: Quantity.QuantityBuilder.() -> Unit) = addQuantity(Quantity.QuantityBuilderImpl().apply(f).build())
+fun ReturnInstruction.ReturnInstructionBuilder.quantity(index: Int, f: Quantity.QuantityBuilder.() -> Unit) = getOrCreateQuantity(index).apply(f)
+
 fun RightsEvents.RightsEventsBuilder.additionalRightsEvent(f: AdditionalRightsEvent.AdditionalRightsEventBuilder.() -> Unit) = orCreateAdditionalRightsEvent.apply(f)
 fun RightsEvents.RightsEventsBuilder.controlAgreementNecEvent(f: ControlAgreementNecEvent.ControlAgreementNecEventBuilder.() -> Unit) = orCreateControlAgreementNecEvent.apply(f)
 fun RightsEvents.RightsEventsBuilder.securityProviderRightsEvent(f: SecurityProviderRightsEvent.SecurityProviderRightsEventBuilder.() -> Unit) = orCreateSecurityProviderRightsEvent.apply(f)
@@ -1844,7 +1838,6 @@ fun SecurityAgreementElections.SecurityAgreementElectionsBuilder.pledgedAccount(
 fun SecurityAgreementElections.SecurityAgreementElectionsBuilder.processAgent(f: ProcessAgent.ProcessAgentBuilder.() -> Unit) = orCreateProcessAgent.apply(f)
 
 fun SecurityFinanceLeg.SecurityFinanceLegBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
-fun SecurityFinanceLeg.SecurityFinanceLegBuilder.payerReceiver(f: PayerReceiver.PayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
 fun SecurityFinanceLeg.SecurityFinanceLegBuilder.settlementDate(f: AdjustableOrRelativeDate.AdjustableOrRelativeDateBuilder.() -> Unit) = orCreateSettlementDate.apply(f)
 
 fun SecurityFinancePayout.SecurityFinancePayoutBuilder.collateralProvisions(f: CollateralProvisions.CollateralProvisionsBuilder.() -> Unit) = orCreateCollateralProvisions.apply(f)
@@ -1862,6 +1855,14 @@ fun SecurityLeg.SecurityLegBuilder.fxRate(f: ExchangeRate.ExchangeRateBuilder.()
 fun SecurityLeg.SecurityLegBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun SecurityLeg.SecurityLegBuilder.settlementAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateSettlementAmount.apply(f)
 fun SecurityLeg.SecurityLegBuilder.settlementDate(f: AdjustableOrRelativeDate.AdjustableOrRelativeDateBuilder.() -> Unit) = orCreateSettlementDate.apply(f)
+
+fun SecurityLendingInvoice.SecurityLendingInvoiceBuilder.billingRecord(f: BillingRecord.BillingRecordBuilder.() -> Unit) = addBillingRecord(BillingRecord.BillingRecordBuilderImpl().apply(f).build())
+fun SecurityLendingInvoice.SecurityLendingInvoiceBuilder.billingRecord(index: Int, f: BillingRecord.BillingRecordBuilder.() -> Unit) = getOrCreateBillingRecord(index).apply(f)
+fun SecurityLendingInvoice.SecurityLendingInvoiceBuilder.billingSummary(f: BillingSummary.BillingSummaryBuilder.() -> Unit) = addBillingSummary(BillingSummary.BillingSummaryBuilderImpl().apply(f).build())
+fun SecurityLendingInvoice.SecurityLendingInvoiceBuilder.billingSummary(index: Int, f: BillingSummary.BillingSummaryBuilder.() -> Unit) = getOrCreateBillingSummary(index).apply(f)
+fun SecurityLendingInvoice.SecurityLendingInvoiceBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun SecurityLendingInvoice.SecurityLendingInvoiceBuilder.receivingParty(f: Party.PartyBuilder.() -> Unit) = orCreateReceivingParty.apply(f)
+fun SecurityLendingInvoice.SecurityLendingInvoiceBuilder.sendingParty(f: Party.PartyBuilder.() -> Unit) = orCreateSendingParty.apply(f)
 
 fun SecurityPayout.SecurityPayoutBuilder.initialMargin(f: InitialMargin.InitialMarginBuilder.() -> Unit) = orCreateInitialMargin.apply(f)
 fun SecurityPayout.SecurityPayoutBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
@@ -1899,25 +1900,29 @@ fun SettledEntityMatrix.SettledEntityMatrixBuilder.matrixSource(f: FieldWithMeta
 
 fun SettlementBase.SettlementBaseBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun SettlementBase.SettlementBaseBuilder.settlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateSettlementCurrency.apply(f)
+fun SettlementBase.SettlementBaseBuilder.settlementDate(f: SettlementDate.SettlementDateBuilder.() -> Unit) = orCreateSettlementDate.apply(f)
+
+fun SettlementDate.SettlementDateBuilder.adjustableDates(f: AdjustableDates.AdjustableDatesBuilder.() -> Unit) = orCreateAdjustableDates.apply(f)
+fun SettlementDate.SettlementDateBuilder.businessDateRange(f: BusinessDateRange.BusinessDateRangeBuilder.() -> Unit) = orCreateBusinessDateRange.apply(f)
+fun SettlementDate.SettlementDateBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun SettlementDate.SettlementDateBuilder.settlementDate(f: AdjustableOrRelativeDate.AdjustableOrRelativeDateBuilder.() -> Unit) = orCreateSettlementDate.apply(f)
+
 
 fun SettlementOrigin.SettlementOriginBuilder.cashSettlementTerms(f: ReferenceWithMetaCashSettlementTerms.ReferenceWithMetaCashSettlementTermsBuilder.() -> Unit) = orCreateCashSettlementTerms.apply(f)
 fun SettlementOrigin.SettlementOriginBuilder.cashflow(f: ReferenceWithMetaCashflow.ReferenceWithMetaCashflowBuilder.() -> Unit) = orCreateCashflow.apply(f)
 fun SettlementOrigin.SettlementOriginBuilder.equityPayout(f: ReferenceWithMetaEquityPayout.ReferenceWithMetaEquityPayoutBuilder.() -> Unit) = orCreateEquityPayout.apply(f)
 fun SettlementOrigin.SettlementOriginBuilder.interestRatePayout(f: ReferenceWithMetaInterestRatePayout.ReferenceWithMetaInterestRatePayoutBuilder.() -> Unit) = orCreateInterestRatePayout.apply(f)
-fun SettlementOrigin.SettlementOriginBuilder.optionSettlement(f: ReferenceWithMetaOptionSettlement.ReferenceWithMetaOptionSettlementBuilder.() -> Unit) = orCreateOptionSettlement.apply(f)
 fun SettlementOrigin.SettlementOriginBuilder.physicalSettlementTerms(f: ReferenceWithMetaPhysicalSettlementTerms.ReferenceWithMetaPhysicalSettlementTermsBuilder.() -> Unit) = orCreatePhysicalSettlementTerms.apply(f)
+fun SettlementOrigin.SettlementOriginBuilder.securityFinancePayout(f: ReferenceWithMetaSecurityFinancePayout.ReferenceWithMetaSecurityFinancePayoutBuilder.() -> Unit) = orCreateSecurityFinancePayout.apply(f)
 fun SettlementOrigin.SettlementOriginBuilder.securityPayout(f: ReferenceWithMetaSecurityPayout.ReferenceWithMetaSecurityPayoutBuilder.() -> Unit) = orCreateSecurityPayout.apply(f)
 fun SettlementOrigin.SettlementOriginBuilder.settlementTerms(f: ReferenceWithMetaSettlementTerms.ReferenceWithMetaSettlementTermsBuilder.() -> Unit) = orCreateSettlementTerms.apply(f)
 
-fun SettlementProvision.SettlementProvisionBuilder.nonDeliverableSettlement(f: NonDeliverableSettlement.NonDeliverableSettlementBuilder.() -> Unit) = orCreateNonDeliverableSettlement.apply(f)
-fun SettlementProvision.SettlementProvisionBuilder.settlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateSettlementCurrency.apply(f)
+fun SettlementRateOption.SettlementRateOptionBuilder.priceSourceDisruption(f: PriceSourceDisruption.PriceSourceDisruptionBuilder.() -> Unit) = orCreatePriceSourceDisruption.apply(f)
+fun SettlementRateOption.SettlementRateOptionBuilder.settlementRateOption(f: FieldWithMetaSettlementRateOptionEnum.FieldWithMetaSettlementRateOptionEnumBuilder.() -> Unit) = orCreateSettlementRateOption.apply(f)
 
-fun SettlementRateSource.SettlementRateSourceBuilder.cashSettlementReferenceBanks(f: CashSettlementReferenceBanks.CashSettlementReferenceBanksBuilder.() -> Unit) = orCreateCashSettlementReferenceBanks.apply(f)
-fun SettlementRateSource.SettlementRateSourceBuilder.informationSource(f: InformationSource.InformationSourceBuilder.() -> Unit) = orCreateInformationSource.apply(f)
-
-fun SettlementTerms.SettlementTermsBuilder.payerReceiver(f: PartyReferencePayerReceiver.PartyReferencePayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
-fun SettlementTerms.SettlementTermsBuilder.priceQuantity(f: ReferenceWithMetaPriceQuantity.ReferenceWithMetaPriceQuantityBuilder.() -> Unit) = orCreatePriceQuantity.apply(f)
-fun SettlementTerms.SettlementTermsBuilder.settlementDate(f: AdjustableOrRelativeDate.AdjustableOrRelativeDateBuilder.() -> Unit) = orCreateSettlementDate.apply(f)
+fun SettlementTerms.SettlementTermsBuilder.cashSettlementTerms(f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = orCreateCashSettlementTerms.apply(f)
+fun SettlementTerms.SettlementTermsBuilder.fxSettlementTerms(f: FxCashSettlement.FxCashSettlementBuilder.() -> Unit) = orCreateFxSettlementTerms.apply(f)
+fun SettlementTerms.SettlementTermsBuilder.physicalSettlementTerms(f: OptionPhysicalSettlement.OptionPhysicalSettlementBuilder.() -> Unit) = orCreatePhysicalSettlementTerms.apply(f)
 
 fun SimmCalculationCurrency.SimmCalculationCurrencyBuilder.partyElection(f: CalculationCurrencyElection.CalculationCurrencyElectionBuilder.() -> Unit) = addPartyElection(CalculationCurrencyElection.CalculationCurrencyElectionBuilderImpl().apply(f).build())
 fun SimmCalculationCurrency.SimmCalculationCurrencyBuilder.partyElection(index: Int, f: CalculationCurrencyElection.CalculationCurrencyElectionBuilder.() -> Unit) = getOrCreatePartyElection(index).apply(f)
@@ -2023,7 +2028,8 @@ fun TradableProduct.TradableProductBuilder.ancillaryParty(index: Int, f: Ancilla
 fun TradableProduct.TradableProductBuilder.counterparty(f: Counterparty.CounterpartyBuilder.() -> Unit) = addCounterparty(Counterparty.CounterpartyBuilderImpl().apply(f).build())
 fun TradableProduct.TradableProductBuilder.counterparty(index: Int, f: Counterparty.CounterpartyBuilder.() -> Unit) = getOrCreateCounterparty(index).apply(f)
 fun TradableProduct.TradableProductBuilder.product(f: Product.ProductBuilder.() -> Unit) = orCreateProduct.apply(f)
-fun TradableProduct.TradableProductBuilder.settlementTerms(f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = orCreateSettlementTerms.apply(f)
+fun TradableProduct.TradableProductBuilder.settlementInstructions(f: SettlementInstructions.SettlementInstructionsBuilder.() -> Unit) = addSettlementInstructions(SettlementInstructions.SettlementInstructionsBuilderImpl().apply(f).build())
+fun TradableProduct.TradableProductBuilder.settlementInstructions(index: Int, f: SettlementInstructions.SettlementInstructionsBuilder.() -> Unit) = getOrCreateSettlementInstructions(index).apply(f)
 fun TradableProduct.TradableProductBuilder.tradeLot(f: TradeLot.TradeLotBuilder.() -> Unit) = addTradeLot(TradeLot.TradeLotBuilderImpl().apply(f).build())
 fun TradableProduct.TradableProductBuilder.tradeLot(index: Int, f: TradeLot.TradeLotBuilder.() -> Unit) = getOrCreateTradeLot(index).apply(f)
 
@@ -2037,8 +2043,6 @@ fun Trade.TradeBuilder.party(f: Party.PartyBuilder.() -> Unit) = addParty(Party.
 fun Trade.TradeBuilder.party(index: Int, f: Party.PartyBuilder.() -> Unit) = getOrCreateParty(index).apply(f)
 fun Trade.TradeBuilder.partyRole(f: PartyRole.PartyRoleBuilder.() -> Unit) = addPartyRole(PartyRole.PartyRoleBuilderImpl().apply(f).build())
 fun Trade.TradeBuilder.partyRole(index: Int, f: PartyRole.PartyRoleBuilder.() -> Unit) = getOrCreatePartyRole(index).apply(f)
-fun Trade.TradeBuilder.settlementTerms(f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = addSettlementTerms(SettlementTerms.SettlementTermsBuilderImpl().apply(f).build())
-fun Trade.TradeBuilder.settlementTerms(index: Int, f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = getOrCreateSettlementTerms(index).apply(f)
 fun Trade.TradeBuilder.tradableProduct(f: TradableProduct.TradableProductBuilder.() -> Unit) = orCreateTradableProduct.apply(f)
 fun Trade.TradeBuilder.tradeDate(f: FieldWithMetaDate.FieldWithMetaDateBuilder.() -> Unit) = orCreateTradeDate.apply(f)
 fun Trade.TradeBuilder.tradeIdentifier(f: Identifier.IdentifierBuilder.() -> Unit) = addTradeIdentifier(Identifier.IdentifierBuilderImpl().apply(f).build())
@@ -2056,9 +2060,6 @@ fun TradeState.TradeStateBuilder.state(f: State.StateBuilder.() -> Unit) = orCre
 fun TradeState.TradeStateBuilder.trade(f: Trade.TradeBuilder.() -> Unit) = orCreateTrade.apply(f)
 fun TradeState.TradeStateBuilder.transferHistory(f: Transfer.TransferBuilder.() -> Unit) = addTransferHistory(Transfer.TransferBuilderImpl().apply(f).build())
 fun TradeState.TradeStateBuilder.transferHistory(index: Int, f: Transfer.TransferBuilder.() -> Unit) = getOrCreateTransferHistory(index).apply(f)
-
-fun TradeStates.TradeStatesBuilder.tradeStates(f: TradeState.TradeStateBuilder.() -> Unit) = addTradeStates(TradeState.TradeStateBuilderImpl().apply(f).build())
-fun TradeStates.TradeStatesBuilder.tradeStates(index: Int, f: TradeState.TradeStateBuilder.() -> Unit) = getOrCreateTradeStates(index).apply(f)
 
 fun TradeWarehouseWorkflow.TradeWarehouseWorkflowBuilder.partyCustomisedWorkflow(f: PartyCustomisedWorkflow.PartyCustomisedWorkflowBuilder.() -> Unit) = addPartyCustomisedWorkflow(PartyCustomisedWorkflow.PartyCustomisedWorkflowBuilderImpl().apply(f).build())
 fun TradeWarehouseWorkflow.TradeWarehouseWorkflowBuilder.partyCustomisedWorkflow(index: Int, f: PartyCustomisedWorkflow.PartyCustomisedWorkflowBuilder.() -> Unit) = getOrCreatePartyCustomisedWorkflow(index).apply(f)
@@ -2084,7 +2085,9 @@ fun TransferCalculation.TransferCalculationBuilder.lineage(f: Lineage.LineageBui
 fun TransferCalculation.TransferCalculationBuilder.lineage(index: Int, f: Lineage.LineageBuilder.() -> Unit) = getOrCreateLineage(index).apply(f)
 fun TransferCalculation.TransferCalculationBuilder.period(f: CalculationPeriodBase.CalculationPeriodBaseBuilder.() -> Unit) = orCreatePeriod.apply(f)
 
+fun TransferInstruction.TransferInstructionBuilder.payerReceiver(f: PayerReceiver.PayerReceiverBuilder.() -> Unit) = orCreatePayerReceiver.apply(f)
 fun TransferInstruction.TransferInstructionBuilder.payout(f: ReferenceWithMetaPayout.ReferenceWithMetaPayoutBuilder.() -> Unit) = orCreatePayout.apply(f)
+fun TransferInstruction.TransferInstructionBuilder.quantity(f: Quantity.QuantityBuilder.() -> Unit) = orCreateQuantity.apply(f)
 fun TransferInstruction.TransferInstructionBuilder.resets(f: Reset.ResetBuilder.() -> Unit) = addResets(Reset.ResetBuilderImpl().apply(f).build())
 fun TransferInstruction.TransferInstructionBuilder.resets(index: Int, f: Reset.ResetBuilder.() -> Unit) = getOrCreateResets(index).apply(f)
 
@@ -2125,9 +2128,20 @@ fun UnitContractValuationModel.UnitContractValuationModelBuilder.unitPrice(f: Mo
 fun UnitType.UnitTypeBuilder.currency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateCurrency.apply(f)
 fun UnitType.UnitTypeBuilder.frequency(f: Frequency.FrequencyBuilder.() -> Unit) = orCreateFrequency.apply(f)
 
+fun ValuationDate.ValuationDateBuilder.fxFixingDate(f: FxFixingDate.FxFixingDateBuilder.() -> Unit) = orCreateFxFixingDate.apply(f)
+fun ValuationDate.ValuationDateBuilder.fxFixingSchedule(f: AdjustableDates.AdjustableDatesBuilder.() -> Unit) = orCreateFxFixingSchedule.apply(f)
 fun ValuationDate.ValuationDateBuilder.multipleValuationDates(f: MultipleValuationDates.MultipleValuationDatesBuilder.() -> Unit) = orCreateMultipleValuationDates.apply(f)
 fun ValuationDate.ValuationDateBuilder.singleValuationDate(f: SingleValuationDate.SingleValuationDateBuilder.() -> Unit) = orCreateSingleValuationDate.apply(f)
+fun ValuationDate.ValuationDateBuilder.valuationDate(f: RelativeDateOffset.RelativeDateOffsetBuilder.() -> Unit) = orCreateValuationDate.apply(f)
 
+fun ValuationMethod.ValuationMethodBuilder.minimumQuotationAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateMinimumQuotationAmount.apply(f)
+fun ValuationMethod.ValuationMethodBuilder.quotationAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateQuotationAmount.apply(f)
+fun ValuationMethod.ValuationMethodBuilder.valuationSource(f: ValuationSource.ValuationSourceBuilder.() -> Unit) = orCreateValuationSource.apply(f)
+
+
+fun ValuationSource.ValuationSourceBuilder.informationSource(f: InformationSource.InformationSourceBuilder.() -> Unit) = orCreateInformationSource.apply(f)
+fun ValuationSource.ValuationSourceBuilder.referenceBanks(f: ReferenceBanks.ReferenceBanksBuilder.() -> Unit) = orCreateReferenceBanks.apply(f)
+fun ValuationSource.ValuationSourceBuilder.settlementRateOption(f: SettlementRateOption.SettlementRateOptionBuilder.() -> Unit) = orCreateSettlementRateOption.apply(f)
 
 
 
@@ -2152,5 +2166,3 @@ fun WorkflowStep.WorkflowStepBuilder.timestamp(index: Int, f: EventTimestamp.Eve
 
 fun WorkflowStepState.WorkflowStepStateBuilder.partyCustomisedWorkflow(f: PartyCustomisedWorkflow.PartyCustomisedWorkflowBuilder.() -> Unit) = addPartyCustomisedWorkflow(PartyCustomisedWorkflow.PartyCustomisedWorkflowBuilderImpl().apply(f).build())
 fun WorkflowStepState.WorkflowStepStateBuilder.partyCustomisedWorkflow(index: Int, f: PartyCustomisedWorkflow.PartyCustomisedWorkflowBuilder.() -> Unit) = getOrCreatePartyCustomisedWorkflow(index).apply(f)
-
-fun YieldCurveMethod.YieldCurveMethodBuilder.settlementRateSource(f: SettlementRateSource.SettlementRateSourceBuilder.() -> Unit) = orCreateSettlementRateSource.apply(f)
