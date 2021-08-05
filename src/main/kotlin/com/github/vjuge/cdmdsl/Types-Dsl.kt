@@ -1,6 +1,6 @@
 /**
  * This file is auto-generated from the ISDA Common Domain Model, do not edit.
- * Version: 2.116.0
+ * Version: 2.118.4
  */
 
 package com.github.vjuge.cdmdsl
@@ -183,6 +183,8 @@ fun AmericanExercise.AmericanExerciseBuilder.relevantUnderlyingDate(f: Adjustabl
 
 fun AmountSchedule.AmountScheduleBuilder.currency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = addCurrency(FieldWithMetaString.FieldWithMetaStringBuilderImpl().apply(f).build())
 fun AmountSchedule.AmountScheduleBuilder.currency(index: Int, f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = getOrCreateCurrency(index).apply(f)
+
+fun AncillaryEntity.AncillaryEntityBuilder.legalEntity(f: LegalEntity.LegalEntityBuilder.() -> Unit) = orCreateLegalEntity.apply(f)
 
 fun AncillaryParty.AncillaryPartyBuilder.partyReference(f: ReferenceWithMetaParty.ReferenceWithMetaPartyBuilder.() -> Unit) = addPartyReference(ReferenceWithMetaParty.ReferenceWithMetaPartyBuilderImpl().apply(f).build())
 fun AncillaryParty.AncillaryPartyBuilder.partyReference(index: Int, f: ReferenceWithMetaParty.ReferenceWithMetaPartyBuilder.() -> Unit) = getOrCreatePartyReference(index).apply(f)
@@ -373,6 +375,9 @@ fun CancelableProvisionAdjustedDates.CancelableProvisionAdjustedDatesBuilder.can
 
 fun CancellationEvent.CancellationEventBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 
+fun CashCollateralValuationMethod.CashCollateralValuationMethodBuilder.agreedDiscountRate(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateAgreedDiscountRate.apply(f)
+fun CashCollateralValuationMethod.CashCollateralValuationMethodBuilder.cashCollateralInterestRate(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateCashCollateralInterestRate.apply(f)
+
 fun CashSettlementTerms.CashSettlementTermsBuilder.cashSettlementAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateCashSettlementAmount.apply(f)
 fun CashSettlementTerms.CashSettlementTermsBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun CashSettlementTerms.CashSettlementTermsBuilder.valuationDate(f: ValuationDate.ValuationDateBuilder.() -> Unit) = orCreateValuationDate.apply(f)
@@ -423,7 +428,7 @@ fun CollateralManagementAgreement.CollateralManagementAgreementBuilder.partyElec
 
 fun CollateralProvisions.CollateralProvisionsBuilder.eligibleCollateral(f: EligibleCollateralSchedule.EligibleCollateralScheduleBuilder.() -> Unit) = addEligibleCollateral(EligibleCollateralSchedule.EligibleCollateralScheduleBuilderImpl().apply(f).build())
 fun CollateralProvisions.CollateralProvisionsBuilder.eligibleCollateral(index: Int, f: EligibleCollateralSchedule.EligibleCollateralScheduleBuilder.() -> Unit) = getOrCreateEligibleCollateral(index).apply(f)
-fun CollateralProvisions.CollateralProvisionsBuilder.marginPercentage(f: CollateralValuationPercentage.CollateralValuationPercentageBuilder.() -> Unit) = orCreateMarginPercentage.apply(f)
+fun CollateralProvisions.CollateralProvisionsBuilder.marginPercentage(f: CollateralValuationTreatment.CollateralValuationTreatmentBuilder.() -> Unit) = orCreateMarginPercentage.apply(f)
 
 
 fun CollateralTaxonomy.CollateralTaxonomyBuilder.taxonomyValue(f: CollateralTaxonomyValue.CollateralTaxonomyValueBuilder.() -> Unit) = orCreateTaxonomyValue.apply(f)
@@ -457,7 +462,7 @@ fun CollateralTransferAgreementElections.CollateralTransferAgreementElectionsBui
 
 fun CollateralTreatment.CollateralTreatmentBuilder.concentrationLimit(f: ConcentrationLimit.ConcentrationLimitBuilder.() -> Unit) = addConcentrationLimit(ConcentrationLimit.ConcentrationLimitBuilderImpl().apply(f).build())
 fun CollateralTreatment.CollateralTreatmentBuilder.concentrationLimit(index: Int, f: ConcentrationLimit.ConcentrationLimitBuilder.() -> Unit) = getOrCreateConcentrationLimit(index).apply(f)
-fun CollateralTreatment.CollateralTreatmentBuilder.valuationPercentage(f: CollateralValuationPercentage.CollateralValuationPercentageBuilder.() -> Unit) = orCreateValuationPercentage.apply(f)
+fun CollateralTreatment.CollateralTreatmentBuilder.valuationTreatment(f: CollateralValuationTreatment.CollateralValuationTreatmentBuilder.() -> Unit) = orCreateValuationTreatment.apply(f)
 
 fun CollateralValuationAgent.CollateralValuationAgentBuilder.partyElection(f: CollateralValuationAgentElection.CollateralValuationAgentElectionBuilder.() -> Unit) = addPartyElection(CollateralValuationAgentElection.CollateralValuationAgentElectionBuilderImpl().apply(f).build())
 fun CollateralValuationAgent.CollateralValuationAgentBuilder.partyElection(index: Int, f: CollateralValuationAgentElection.CollateralValuationAgentElectionBuilder.() -> Unit) = getOrCreatePartyElection(index).apply(f)
@@ -490,6 +495,7 @@ fun CommodityTransferComponent.CommodityTransferComponentBuilder.breakdown(index
 fun CommodityTransferComponent.CommodityTransferComponentBuilder.commodity(f: Commodity.CommodityBuilder.() -> Unit) = orCreateCommodity.apply(f)
 fun CommodityTransferComponent.CommodityTransferComponentBuilder.transferorTransferee(f: TransferorTransferee.TransferorTransfereeBuilder.() -> Unit) = orCreateTransferorTransferee.apply(f)
 
+fun Composite.CompositeBuilder.fixingTime(f: BusinessCenterTime.BusinessCenterTimeBuilder.() -> Unit) = orCreateFixingTime.apply(f)
 fun Composite.CompositeBuilder.fxSpotRateSource(f: FxSpotRateSource.FxSpotRateSourceBuilder.() -> Unit) = orCreateFxSpotRateSource.apply(f)
 fun Composite.CompositeBuilder.relativeDate(f: RelativeDateOffset.RelativeDateOffsetBuilder.() -> Unit) = orCreateRelativeDate.apply(f)
 
@@ -568,18 +574,12 @@ fun CoveredTransactions.CoveredTransactionsBuilder.additionalObligations(index: 
 fun CoveredTransactions.CoveredTransactionsBuilder.coveredTransactions(f: ProductTaxonomy.ProductTaxonomyBuilder.() -> Unit) = addCoveredTransactions(ProductTaxonomy.ProductTaxonomyBuilderImpl().apply(f).build())
 fun CoveredTransactions.CoveredTransactionsBuilder.coveredTransactions(index: Int, f: ProductTaxonomy.ProductTaxonomyBuilder.() -> Unit) = getOrCreateCoveredTransactions(index).apply(f)
 
-fun CreditDefaultPayout.CreditDefaultPayoutBuilder.cashSettlementTerms(f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = addCashSettlementTerms(CashSettlementTerms.CashSettlementTermsBuilderImpl().apply(f).build())
-fun CreditDefaultPayout.CreditDefaultPayoutBuilder.cashSettlementTerms(index: Int, f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = getOrCreateCashSettlementTerms(index).apply(f)
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.generalTerms(f: GeneralTerms.GeneralTermsBuilder.() -> Unit) = orCreateGeneralTerms.apply(f)
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
-fun CreditDefaultPayout.CreditDefaultPayoutBuilder.physicalSettlementTerms(f: PhysicalSettlementTerms.PhysicalSettlementTermsBuilder.() -> Unit) = addPhysicalSettlementTerms(PhysicalSettlementTerms.PhysicalSettlementTermsBuilderImpl().apply(f).build())
-fun CreditDefaultPayout.CreditDefaultPayoutBuilder.physicalSettlementTerms(index: Int, f: PhysicalSettlementTerms.PhysicalSettlementTermsBuilder.() -> Unit) = getOrCreatePhysicalSettlementTerms(index).apply(f)
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.protectionTerms(f: ProtectionTerms.ProtectionTermsBuilder.() -> Unit) = addProtectionTerms(ProtectionTerms.ProtectionTermsBuilderImpl().apply(f).build())
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.protectionTerms(index: Int, f: ProtectionTerms.ProtectionTermsBuilder.() -> Unit) = getOrCreateProtectionTerms(index).apply(f)
-fun CreditDefaultPayout.CreditDefaultPayoutBuilder.settlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateSettlementCurrency.apply(f)
 fun CreditDefaultPayout.CreditDefaultPayoutBuilder.transactedPrice(f: TransactedPrice.TransactedPriceBuilder.() -> Unit) = orCreateTransactedPrice.apply(f)
 
-fun CreditEventNotice.CreditEventNoticeBuilder.notifyingParty(f: NotifyingParty.NotifyingPartyBuilder.() -> Unit) = orCreateNotifyingParty.apply(f)
 fun CreditEventNotice.CreditEventNoticeBuilder.publiclyAvailableInformation(f: PubliclyAvailableInformation.PubliclyAvailableInformationBuilder.() -> Unit) = orCreatePubliclyAvailableInformation.apply(f)
 
 fun CreditEvents.CreditEventsBuilder.creditEventNotice(f: CreditEventNotice.CreditEventNoticeBuilder.() -> Unit) = orCreateCreditEventNotice.apply(f)
@@ -952,6 +952,8 @@ fun ExtraordinaryEvents.ExtraordinaryEventsBuilder.tenderOfferEvents(f: EquityCo
 fun FailureToPay.FailureToPayBuilder.gracePeriodExtension(f: GracePeriodExtension.GracePeriodExtensionBuilder.() -> Unit) = orCreateGracePeriodExtension.apply(f)
 fun FailureToPay.FailureToPayBuilder.paymentRequirement(f: Money.MoneyBuilder.() -> Unit) = orCreatePaymentRequirement.apply(f)
 
+fun FallbackRateParameters.FallbackRateParametersBuilder.calculationParameters(f: FloatingRateCalculationParameters.FloatingRateCalculationParametersBuilder.() -> Unit) = orCreateCalculationParameters.apply(f)
+
 fun FallbackReferencePrice.FallbackReferencePriceBuilder.calculationAgentDetermination(f: CalculationAgent.CalculationAgentBuilder.() -> Unit) = orCreateCalculationAgentDetermination.apply(f)
 fun FallbackReferencePrice.FallbackReferencePriceBuilder.fallBackSettlementRateOption(f: FieldWithMetaSettlementRateOptionEnum.FieldWithMetaSettlementRateOptionEnumBuilder.() -> Unit) = addFallBackSettlementRateOption(FieldWithMetaSettlementRateOptionEnum.FieldWithMetaSettlementRateOptionEnumBuilderImpl().apply(f).build())
 fun FallbackReferencePrice.FallbackReferencePriceBuilder.fallBackSettlementRateOption(index: Int, f: FieldWithMetaSettlementRateOptionEnum.FieldWithMetaSettlementRateOptionEnumBuilder.() -> Unit) = getOrCreateFallBackSettlementRateOption(index).apply(f)
@@ -981,8 +983,10 @@ fun FloatingAmountEvents.FloatingAmountEventsBuilder.floatingAmountProvisions(f:
 fun FloatingAmountEvents.FloatingAmountEventsBuilder.interestShortfall(f: InterestShortFall.InterestShortFallBuilder.() -> Unit) = orCreateInterestShortfall.apply(f)
 
 
+fun FloatingRate.FloatingRateBuilder.calculationParameters(f: FloatingRateCalculationParameters.FloatingRateCalculationParametersBuilder.() -> Unit) = orCreateCalculationParameters.apply(f)
 fun FloatingRate.FloatingRateBuilder.capRateSchedule(f: StrikeSchedule.StrikeScheduleBuilder.() -> Unit) = addCapRateSchedule(StrikeSchedule.StrikeScheduleBuilderImpl().apply(f).build())
 fun FloatingRate.FloatingRateBuilder.capRateSchedule(index: Int, f: StrikeSchedule.StrikeScheduleBuilder.() -> Unit) = getOrCreateCapRateSchedule(index).apply(f)
+fun FloatingRate.FloatingRateBuilder.fallbackRate(f: FallbackRateParameters.FallbackRateParametersBuilder.() -> Unit) = orCreateFallbackRate.apply(f)
 fun FloatingRate.FloatingRateBuilder.floatingRateMultiplierSchedule(f: RateSchedule.RateScheduleBuilder.() -> Unit) = orCreateFloatingRateMultiplierSchedule.apply(f)
 fun FloatingRate.FloatingRateBuilder.floorRateSchedule(f: StrikeSchedule.StrikeScheduleBuilder.() -> Unit) = addFloorRateSchedule(StrikeSchedule.StrikeScheduleBuilderImpl().apply(f).build())
 fun FloatingRate.FloatingRateBuilder.floorRateSchedule(index: Int, f: StrikeSchedule.StrikeScheduleBuilder.() -> Unit) = getOrCreateFloorRateSchedule(index).apply(f)
@@ -990,6 +994,12 @@ fun FloatingRate.FloatingRateBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> 
 fun FloatingRate.FloatingRateBuilder.rateOption(f: ReferenceWithMetaFloatingRateOption.ReferenceWithMetaFloatingRateOptionBuilder.() -> Unit) = orCreateRateOption.apply(f)
 fun FloatingRate.FloatingRateBuilder.spreadSchedule(f: SpreadSchedule.SpreadScheduleBuilder.() -> Unit) = addSpreadSchedule(SpreadSchedule.SpreadScheduleBuilderImpl().apply(f).build())
 fun FloatingRate.FloatingRateBuilder.spreadSchedule(index: Int, f: SpreadSchedule.SpreadScheduleBuilder.() -> Unit) = getOrCreateSpreadSchedule(index).apply(f)
+
+fun FloatingRateCalculationParameters.FloatingRateCalculationParametersBuilder.applicableBusinessDays(f: BusinessCenters.BusinessCentersBuilder.() -> Unit) = orCreateApplicableBusinessDays.apply(f)
+fun FloatingRateCalculationParameters.FloatingRateCalculationParametersBuilder.lockoutCalculation(f: OffsetCalculation.OffsetCalculationBuilder.() -> Unit) = orCreateLockoutCalculation.apply(f)
+fun FloatingRateCalculationParameters.FloatingRateCalculationParametersBuilder.lookbackCalculation(f: OffsetCalculation.OffsetCalculationBuilder.() -> Unit) = orCreateLookbackCalculation.apply(f)
+fun FloatingRateCalculationParameters.FloatingRateCalculationParametersBuilder.observationParameters(f: ObservationParameters.ObservationParametersBuilder.() -> Unit) = orCreateObservationParameters.apply(f)
+fun FloatingRateCalculationParameters.FloatingRateCalculationParametersBuilder.observationShiftCalculation(f: ObservationShiftCalculation.ObservationShiftCalculationBuilder.() -> Unit) = orCreateObservationShiftCalculation.apply(f)
 
 fun FloatingRateDefinition.FloatingRateDefinitionBuilder.capRate(f: Strike.StrikeBuilder.() -> Unit) = addCapRate(Strike.StrikeBuilderImpl().apply(f).build())
 fun FloatingRateDefinition.FloatingRateDefinitionBuilder.capRate(index: Int, f: Strike.StrikeBuilder.() -> Unit) = getOrCreateCapRate(index).apply(f)
@@ -1021,31 +1031,23 @@ fun Frequency.FrequencyBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) 
 fun FutureValueAmount.FutureValueAmountBuilder.currency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateCurrency.apply(f)
 fun FutureValueAmount.FutureValueAmountBuilder.quantity(f: ReferenceWithMetaQuantity.ReferenceWithMetaQuantityBuilder.() -> Unit) = orCreateQuantity.apply(f)
 
-fun FxCashSettlement.FxCashSettlementBuilder.fixing(f: FxFixing.FxFixingBuilder.() -> Unit) = addFixing(FxFixing.FxFixingBuilderImpl().apply(f).build())
-fun FxCashSettlement.FxCashSettlementBuilder.fixing(index: Int, f: FxFixing.FxFixingBuilder.() -> Unit) = getOrCreateFixing(index).apply(f)
-fun FxCashSettlement.FxCashSettlementBuilder.rateSourceFixing(f: FxRateSourceFixing.FxRateSourceFixingBuilder.() -> Unit) = addRateSourceFixing(FxRateSourceFixing.FxRateSourceFixingBuilderImpl().apply(f).build())
-fun FxCashSettlement.FxCashSettlementBuilder.rateSourceFixing(index: Int, f: FxRateSourceFixing.FxRateSourceFixingBuilder.() -> Unit) = getOrCreateRateSourceFixing(index).apply(f)
-fun FxCashSettlement.FxCashSettlementBuilder.referenceCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateReferenceCurrency.apply(f)
-fun FxCashSettlement.FxCashSettlementBuilder.settlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateSettlementCurrency.apply(f)
-
 fun FxFeature.FxFeatureBuilder.composite(f: Composite.CompositeBuilder.() -> Unit) = orCreateComposite.apply(f)
 fun FxFeature.FxFeatureBuilder.crossCurrency(f: Composite.CompositeBuilder.() -> Unit) = orCreateCrossCurrency.apply(f)
 fun FxFeature.FxFeatureBuilder.quanto(f: Quanto.QuantoBuilder.() -> Unit) = orCreateQuanto.apply(f)
 fun FxFeature.FxFeatureBuilder.referenceCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateReferenceCurrency.apply(f)
 
-fun FxFixing.FxFixingBuilder.fxSpotRateSource(f: FxSpotRateSource.FxSpotRateSourceBuilder.() -> Unit) = orCreateFxSpotRateSource.apply(f)
-fun FxFixing.FxFixingBuilder.quotedCurrencyPair(f: ReferenceWithMetaQuotedCurrencyPair.ReferenceWithMetaQuotedCurrencyPairBuilder.() -> Unit) = orCreateQuotedCurrencyPair.apply(f)
-
 fun FxFixingDate.FxFixingDateBuilder.businessCenters(f: BusinessCenters.BusinessCentersBuilder.() -> Unit) = orCreateBusinessCenters.apply(f)
 fun FxFixingDate.FxFixingDateBuilder.businessCentersReference(f: ReferenceWithMetaBusinessCenters.ReferenceWithMetaBusinessCentersBuilder.() -> Unit) = orCreateBusinessCentersReference.apply(f)
 fun FxFixingDate.FxFixingDateBuilder.dateRelativeToCalculationPeriodDates(f: DateRelativeToCalculationPeriodDates.DateRelativeToCalculationPeriodDatesBuilder.() -> Unit) = orCreateDateRelativeToCalculationPeriodDates.apply(f)
 fun FxFixingDate.FxFixingDateBuilder.dateRelativeToPaymentDates(f: DateRelativeToPaymentDates.DateRelativeToPaymentDatesBuilder.() -> Unit) = orCreateDateRelativeToPaymentDates.apply(f)
+fun FxFixingDate.FxFixingDateBuilder.fxFixingDate(f: AdjustableOrRelativeDate.AdjustableOrRelativeDateBuilder.() -> Unit) = orCreateFxFixingDate.apply(f)
 
 fun FxHaircutCurrency.FxHaircutCurrencyBuilder.fxDesignatedCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateFxDesignatedCurrency.apply(f)
 
 fun FxInformationSource.FxInformationSourceBuilder.fixingTime(f: BusinessCenterTime.BusinessCenterTimeBuilder.() -> Unit) = orCreateFixingTime.apply(f)
 
 
+fun FxLinkedNotionalSchedule.FxLinkedNotionalScheduleBuilder.fixingTime(f: BusinessCenterTime.BusinessCenterTimeBuilder.() -> Unit) = orCreateFixingTime.apply(f)
 fun FxLinkedNotionalSchedule.FxLinkedNotionalScheduleBuilder.fxSpotRateSource(f: FxSpotRateSource.FxSpotRateSourceBuilder.() -> Unit) = orCreateFxSpotRateSource.apply(f)
 fun FxLinkedNotionalSchedule.FxLinkedNotionalScheduleBuilder.initialValue(f: ReferenceWithMetaQuantity.ReferenceWithMetaQuantityBuilder.() -> Unit) = orCreateInitialValue.apply(f)
 fun FxLinkedNotionalSchedule.FxLinkedNotionalScheduleBuilder.varyingNotionalCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateVaryingNotionalCurrency.apply(f)
@@ -1064,7 +1066,6 @@ fun FxRateSourceFixing.FxRateSourceFixingBuilder.settlementRateSource(f: FxSettl
 fun FxSettlementRateSource.FxSettlementRateSourceBuilder.nonstandardSettlementRate(f: FxInformationSource.FxInformationSourceBuilder.() -> Unit) = orCreateNonstandardSettlementRate.apply(f)
 fun FxSettlementRateSource.FxSettlementRateSourceBuilder.settlementRateOption(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateSettlementRateOption.apply(f)
 
-fun FxSpotRateSource.FxSpotRateSourceBuilder.fixingTime(f: BusinessCenterTime.BusinessCenterTimeBuilder.() -> Unit) = orCreateFixingTime.apply(f)
 fun FxSpotRateSource.FxSpotRateSourceBuilder.primaryRateSource(f: InformationSource.InformationSourceBuilder.() -> Unit) = orCreatePrimaryRateSource.apply(f)
 fun FxSpotRateSource.FxSpotRateSourceBuilder.secondaryRateSource(f: InformationSource.InformationSourceBuilder.() -> Unit) = orCreateSecondaryRateSource.apply(f)
 
@@ -1074,7 +1075,6 @@ fun GeneralSimmElections.GeneralSimmElectionsBuilder.simmVersion(f: SimmVersion.
 fun GeneralTerms.GeneralTermsBuilder.additionalTerm(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = addAdditionalTerm(FieldWithMetaString.FieldWithMetaStringBuilderImpl().apply(f).build())
 fun GeneralTerms.GeneralTermsBuilder.additionalTerm(index: Int, f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = getOrCreateAdditionalTerm(index).apply(f)
 fun GeneralTerms.GeneralTermsBuilder.basketReferenceInformation(f: BasketReferenceInformation.BasketReferenceInformationBuilder.() -> Unit) = orCreateBasketReferenceInformation.apply(f)
-fun GeneralTerms.GeneralTermsBuilder.buyerSeller(f: BuyerSeller.BuyerSellerBuilder.() -> Unit) = orCreateBuyerSeller.apply(f)
 fun GeneralTerms.GeneralTermsBuilder.indexReferenceInformation(f: IndexReferenceInformation.IndexReferenceInformationBuilder.() -> Unit) = orCreateIndexReferenceInformation.apply(f)
 fun GeneralTerms.GeneralTermsBuilder.referenceInformation(f: ReferenceInformation.ReferenceInformationBuilder.() -> Unit) = orCreateReferenceInformation.apply(f)
 
@@ -1349,7 +1349,6 @@ fun NotificationTime.NotificationTimeBuilder.partyElections(index: Int, f: Notif
 
 fun NotificationTimeElection.NotificationTimeElectionBuilder.notificationTime(f: BusinessCenterTime.BusinessCenterTimeBuilder.() -> Unit) = orCreateNotificationTime.apply(f)
 
-
 fun Obligations.ObligationsBuilder.designatedPriority(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateDesignatedPriority.apply(f)
 fun Obligations.ObligationsBuilder.notDomesticCurrency(f: NotDomesticCurrency.NotDomesticCurrencyBuilder.() -> Unit) = orCreateNotDomesticCurrency.apply(f)
 fun Obligations.ObligationsBuilder.specifiedCurrency(f: SpecifiedCurrency.SpecifiedCurrencyBuilder.() -> Unit) = orCreateSpecifiedCurrency.apply(f)
@@ -1374,6 +1373,7 @@ fun ObservationIdentifier.ObservationIdentifierBuilder.informationSource(f: Info
 fun ObservationIdentifier.ObservationIdentifierBuilder.observable(f: Observable.ObservableBuilder.() -> Unit) = orCreateObservable.apply(f)
 fun ObservationIdentifier.ObservationIdentifierBuilder.observationTime(f: TimeZone.TimeZoneBuilder.() -> Unit) = orCreateObservationTime.apply(f)
 
+
 fun ObservationPayout.ObservationPayoutBuilder.calculationPeriodDates(f: CalculationPeriodDates.CalculationPeriodDatesBuilder.() -> Unit) = addCalculationPeriodDates(CalculationPeriodDates.CalculationPeriodDatesBuilderImpl().apply(f).build())
 fun ObservationPayout.ObservationPayoutBuilder.calculationPeriodDates(index: Int, f: CalculationPeriodDates.CalculationPeriodDatesBuilder.() -> Unit) = getOrCreateCalculationPeriodDates(index).apply(f)
 fun ObservationPayout.ObservationPayoutBuilder.fxFeature(f: FxFeature.FxFeatureBuilder.() -> Unit) = orCreateFxFeature.apply(f)
@@ -1382,12 +1382,13 @@ fun ObservationPayout.ObservationPayoutBuilder.underlier(f: Product.ProductBuild
 
 fun ObservationSchedule.ObservationScheduleBuilder.date(f: AdjustableOrAdjustedDate.AdjustableOrAdjustedDateBuilder.() -> Unit) = orCreateDate.apply(f)
 
+fun ObservationShiftCalculation.ObservationShiftCalculationBuilder.additionalBusinessDays(f: BusinessCenters.BusinessCentersBuilder.() -> Unit) = orCreateAdditionalBusinessDays.apply(f)
+
 fun ObservationSource.ObservationSourceBuilder.curve(f: Curve.CurveBuilder.() -> Unit) = orCreateCurve.apply(f)
 fun ObservationSource.ObservationSourceBuilder.informationSource(f: InformationSource.InformationSourceBuilder.() -> Unit) = orCreateInformationSource.apply(f)
 
 
 
-fun OptionDenomination.OptionDenominationBuilder.entitlementCurrency(f: FieldWithMetaString.FieldWithMetaStringBuilder.() -> Unit) = orCreateEntitlementCurrency.apply(f)
 
 fun OptionExercise.OptionExerciseBuilder.exerciseProcedure(f: ExerciseProcedure.ExerciseProcedureBuilder.() -> Unit) = orCreateExerciseProcedure.apply(f)
 fun OptionExercise.OptionExerciseBuilder.optionStyle(f: OptionStyle.OptionStyleBuilder.() -> Unit) = orCreateOptionStyle.apply(f)
@@ -1401,12 +1402,10 @@ fun OptionFeature.OptionFeatureBuilder.passThrough(f: PassThrough.PassThroughBui
 fun OptionFeature.OptionFeatureBuilder.strategyFeature(f: StrategyFeature.StrategyFeatureBuilder.() -> Unit) = orCreateStrategyFeature.apply(f)
 
 fun OptionPayout.OptionPayoutBuilder.buyerSeller(f: BuyerSeller.BuyerSellerBuilder.() -> Unit) = orCreateBuyerSeller.apply(f)
-fun OptionPayout.OptionPayoutBuilder.denomination(f: OptionDenomination.OptionDenominationBuilder.() -> Unit) = orCreateDenomination.apply(f)
 fun OptionPayout.OptionPayoutBuilder.exerciseTerms(f: OptionExercise.OptionExerciseBuilder.() -> Unit) = orCreateExerciseTerms.apply(f)
 fun OptionPayout.OptionPayoutBuilder.feature(f: OptionFeature.OptionFeatureBuilder.() -> Unit) = orCreateFeature.apply(f)
 fun OptionPayout.OptionPayoutBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun OptionPayout.OptionPayoutBuilder.underlier(f: Product.ProductBuilder.() -> Unit) = orCreateUnderlier.apply(f)
-
 
 fun OptionProvision.OptionProvisionBuilder.cancelableProvision(f: CancelableProvision.CancelableProvisionBuilder.() -> Unit) = orCreateCancelableProvision.apply(f)
 fun OptionProvision.OptionProvisionBuilder.extendibleProvision(f: ExtendibleProvision.ExtendibleProvisionBuilder.() -> Unit) = orCreateExtendibleProvision.apply(f)
@@ -1685,6 +1684,7 @@ fun QuantityGroups.QuantityGroupsBuilder.quantityGroups(index: Int, f: QuantityG
 
 fun QuantityMultiplier.QuantityMultiplierBuilder.fxLinkedNotionalSchedule(f: FxLinkedNotionalSchedule.FxLinkedNotionalScheduleBuilder.() -> Unit) = orCreateFxLinkedNotionalSchedule.apply(f)
 
+fun Quanto.QuantoBuilder.fixingTime(f: BusinessCenterTime.BusinessCenterTimeBuilder.() -> Unit) = orCreateFixingTime.apply(f)
 fun Quanto.QuantoBuilder.fxRate(f: FxRate.FxRateBuilder.() -> Unit) = addFxRate(FxRate.FxRateBuilderImpl().apply(f).build())
 fun Quanto.QuantoBuilder.fxRate(index: Int, f: FxRate.FxRateBuilder.() -> Unit) = getOrCreateFxRate(index).apply(f)
 fun Quanto.QuantoBuilder.fxSpotRateSource(f: FxSpotRateSource.FxSpotRateSourceBuilder.() -> Unit) = orCreateFxSpotRateSource.apply(f)
@@ -1920,9 +1920,9 @@ fun SettlementOrigin.SettlementOriginBuilder.settlementTerms(f: ReferenceWithMet
 fun SettlementRateOption.SettlementRateOptionBuilder.priceSourceDisruption(f: PriceSourceDisruption.PriceSourceDisruptionBuilder.() -> Unit) = orCreatePriceSourceDisruption.apply(f)
 fun SettlementRateOption.SettlementRateOptionBuilder.settlementRateOption(f: FieldWithMetaSettlementRateOptionEnum.FieldWithMetaSettlementRateOptionEnumBuilder.() -> Unit) = orCreateSettlementRateOption.apply(f)
 
-fun SettlementTerms.SettlementTermsBuilder.cashSettlementTerms(f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = orCreateCashSettlementTerms.apply(f)
-fun SettlementTerms.SettlementTermsBuilder.fxSettlementTerms(f: FxCashSettlement.FxCashSettlementBuilder.() -> Unit) = orCreateFxSettlementTerms.apply(f)
-fun SettlementTerms.SettlementTermsBuilder.physicalSettlementTerms(f: OptionPhysicalSettlement.OptionPhysicalSettlementBuilder.() -> Unit) = orCreatePhysicalSettlementTerms.apply(f)
+fun SettlementTerms.SettlementTermsBuilder.cashSettlementTerms(f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = addCashSettlementTerms(CashSettlementTerms.CashSettlementTermsBuilderImpl().apply(f).build())
+fun SettlementTerms.SettlementTermsBuilder.cashSettlementTerms(index: Int, f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = getOrCreateCashSettlementTerms(index).apply(f)
+fun SettlementTerms.SettlementTermsBuilder.physicalSettlementTerms(f: PhysicalSettlementTerms.PhysicalSettlementTermsBuilder.() -> Unit) = orCreatePhysicalSettlementTerms.apply(f)
 
 fun SimmCalculationCurrency.SimmCalculationCurrencyBuilder.partyElection(f: CalculationCurrencyElection.CalculationCurrencyElectionBuilder.() -> Unit) = addPartyElection(CalculationCurrencyElection.CalculationCurrencyElectionBuilderImpl().apply(f).build())
 fun SimmCalculationCurrency.SimmCalculationCurrencyBuilder.partyElection(index: Int, f: CalculationCurrencyElection.CalculationCurrencyElectionBuilder.() -> Unit) = getOrCreatePartyElection(index).apply(f)
@@ -2134,14 +2134,18 @@ fun ValuationDate.ValuationDateBuilder.multipleValuationDates(f: MultipleValuati
 fun ValuationDate.ValuationDateBuilder.singleValuationDate(f: SingleValuationDate.SingleValuationDateBuilder.() -> Unit) = orCreateSingleValuationDate.apply(f)
 fun ValuationDate.ValuationDateBuilder.valuationDate(f: RelativeDateOffset.RelativeDateOffsetBuilder.() -> Unit) = orCreateValuationDate.apply(f)
 
+fun ValuationMethod.ValuationMethodBuilder.cashCollateralValuationMethod(f: CashCollateralValuationMethod.CashCollateralValuationMethodBuilder.() -> Unit) = orCreateCashCollateralValuationMethod.apply(f)
 fun ValuationMethod.ValuationMethodBuilder.minimumQuotationAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateMinimumQuotationAmount.apply(f)
 fun ValuationMethod.ValuationMethodBuilder.quotationAmount(f: Money.MoneyBuilder.() -> Unit) = orCreateQuotationAmount.apply(f)
 fun ValuationMethod.ValuationMethodBuilder.valuationSource(f: ValuationSource.ValuationSourceBuilder.() -> Unit) = orCreateValuationSource.apply(f)
 
 
-fun ValuationSource.ValuationSourceBuilder.informationSource(f: InformationSource.InformationSourceBuilder.() -> Unit) = orCreateInformationSource.apply(f)
+fun ValuationSource.ValuationSourceBuilder.dealerOrCCP(f: AncillaryEntity.AncillaryEntityBuilder.() -> Unit) = orCreateDealerOrCCP.apply(f)
+fun ValuationSource.ValuationSourceBuilder.informationSource(f: FxSpotRateSource.FxSpotRateSourceBuilder.() -> Unit) = orCreateInformationSource.apply(f)
+fun ValuationSource.ValuationSourceBuilder.quotedCurrencyPair(f: ReferenceWithMetaQuotedCurrencyPair.ReferenceWithMetaQuotedCurrencyPairBuilder.() -> Unit) = orCreateQuotedCurrencyPair.apply(f)
 fun ValuationSource.ValuationSourceBuilder.referenceBanks(f: ReferenceBanks.ReferenceBanksBuilder.() -> Unit) = orCreateReferenceBanks.apply(f)
 fun ValuationSource.ValuationSourceBuilder.settlementRateOption(f: SettlementRateOption.SettlementRateOptionBuilder.() -> Unit) = orCreateSettlementRateOption.apply(f)
+
 
 
 

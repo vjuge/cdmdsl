@@ -1,6 +1,6 @@
 /**
  * This file is auto-generated from the ISDA Common Domain Model, do not edit.
- * Version: 2.116.0
+ * Version: 2.118.4
  */
 
 package com.github.vjuge.cdmdsl
@@ -13,8 +13,6 @@ import cdm.base.datetime.metafields.ReferenceWithMetaAdjustableOrRelativeDates
 import cdm.base.datetime.metafields.ReferenceWithMetaBusinessCenters
 import cdm.base.datetime.metafields.ReferenceWithMetaBusinessDayAdjustments
 import cdm.base.math.Quantity
-import cdm.base.math.QuantityGroup
-import cdm.base.math.QuantityGroups
 import cdm.base.math.metafields.FieldWithMetaQuantity
 import cdm.base.staticdata.asset.common.Commodity
 import cdm.base.staticdata.asset.common.ProductIdentifier
@@ -69,7 +67,6 @@ import cdm.product.common.settlement.*
 import cdm.product.common.settlement.metafields.*
 import cdm.product.template.*
 import cdm.product.template.metafields.*
-import com.rosetta.model.lib.meta.GlobalKeyFields
 import com.rosetta.model.lib.meta.Key
 import com.rosetta.model.metafields.FieldWithMetaDate
 import com.rosetta.model.metafields.FieldWithMetaString
@@ -157,6 +154,5 @@ fun FieldWithMetaResourceTypeEnum.FieldWithMetaResourceTypeEnumBuilder.meta(f: M
 fun FieldWithMetaRestructuringEnum.FieldWithMetaRestructuringEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaSettledEntityMatrixSourceEnum.FieldWithMetaSettledEntityMatrixSourceEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaSpreadScheduleTypeEnum.FieldWithMetaSpreadScheduleTypeEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
-
 fun MetaFields.MetaFieldsBuilder.key(index: Int, f: Key.KeyBuilder.() -> Unit) = this.getOrCreateKey(index).apply(f)
 fun MetaFields.MetaFieldsBuilder.key(f: Key.KeyBuilder.() -> Unit) = addKey(Key.builder().apply(f).build())
