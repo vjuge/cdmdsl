@@ -12,21 +12,30 @@ import cdm.base.datetime.metafields.FieldWithMetaBusinessCenterEnum
 import cdm.base.datetime.metafields.ReferenceWithMetaAdjustableOrRelativeDates
 import cdm.base.datetime.metafields.ReferenceWithMetaBusinessCenters
 import cdm.base.datetime.metafields.ReferenceWithMetaBusinessDayAdjustments
+import cdm.base.math.Quantity
+import cdm.base.math.QuantityGroup
+import cdm.base.math.QuantityGroups
 import cdm.base.math.metafields.FieldWithMetaQuantity
+import cdm.base.staticdata.asset.common.Commodity
 import cdm.base.staticdata.asset.common.ProductIdentifier
 import cdm.base.staticdata.asset.common.metafields.FieldWithMetaAssetClassEnum
 import cdm.base.staticdata.asset.common.metafields.FieldWithMetaCommodity
 import cdm.base.staticdata.asset.common.metafields.FieldWithMetaProductIdentifier
 import cdm.base.staticdata.asset.common.metafields.ReferenceWithMetaProductIdentifier
 import cdm.base.staticdata.asset.rates.metafields.FieldWithMetaFloatingRateIndexEnum
+import cdm.base.staticdata.identifier.Identifier
 import cdm.base.staticdata.identifier.metafields.FieldWithMetaIdentifier
 import cdm.base.staticdata.party.Account
 import cdm.base.staticdata.party.LegalEntity
 import cdm.base.staticdata.party.NaturalPerson
 import cdm.base.staticdata.party.Party
 import cdm.base.staticdata.party.metafields.*
-import cdm.event.common.*
-import cdm.event.common.metafields.*
+import cdm.event.common.Trade
+import cdm.event.common.TradeState
+import cdm.event.common.TransferPrimitive
+import cdm.event.common.metafields.ReferenceWithMetaTrade
+import cdm.event.common.metafields.ReferenceWithMetaTradeState
+import cdm.event.common.metafields.ReferenceWithMetaTransferPrimitive
 import cdm.event.position.PortfolioState
 import cdm.event.position.metafields.ReferenceWithMetaPortfolioState
 import cdm.event.workflow.WorkflowStep
@@ -40,10 +49,7 @@ import cdm.legalagreement.csa.metafields.FieldWithMetaCreditSupportAgreementType
 import cdm.legalagreement.master.metafields.FieldWithMetaMasterAgreementTypeEnum
 import cdm.legalagreement.master.metafields.FieldWithMetaMasterConfirmationAnnexTypeEnum
 import cdm.legalagreement.master.metafields.FieldWithMetaMasterConfirmationTypeEnum
-import cdm.observable.asset.FixedRateSpecification
-import cdm.observable.asset.Money
-import cdm.observable.asset.PriceQuantity
-import cdm.observable.asset.RateObservation
+import cdm.observable.asset.*
 import cdm.observable.asset.metafields.*
 import cdm.observable.event.CreditEvents
 import cdm.observable.event.Observation
@@ -63,10 +69,11 @@ import cdm.product.common.settlement.*
 import cdm.product.common.settlement.metafields.*
 import cdm.product.template.*
 import cdm.product.template.metafields.*
+import com.rosetta.model.lib.meta.GlobalKeyFields
+import com.rosetta.model.lib.meta.Key
 import com.rosetta.model.metafields.FieldWithMetaDate
 import com.rosetta.model.metafields.FieldWithMetaString
 import com.rosetta.model.metafields.MetaFields
-
 
 fun ReferenceWithMetaParty.ReferenceWithMetaPartyBuilder.value(f: Party.PartyBuilder.() -> Unit) = orCreateValue.apply(f)
 fun ReferenceWithMetaBusinessDayAdjustments.ReferenceWithMetaBusinessDayAdjustmentsBuilder.value(f: BusinessDayAdjustments.BusinessDayAdjustmentsBuilder.() -> Unit) = orCreateValue.apply(f)
@@ -118,10 +125,14 @@ fun FieldWithMetaDayCountFractionEnum.FieldWithMetaDayCountFractionEnumBuilder.m
 fun FieldWithMetaContractualDefinitionsEnum.FieldWithMetaContractualDefinitionsEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaSettlementRateOptionEnum.FieldWithMetaSettlementRateOptionEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaPrice.FieldWithMetaPriceBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun FieldWithMetaPrice.FieldWithMetaPriceBuilder.value(f: Price.PriceBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaFloatingRateOption.FieldWithMetaFloatingRateOptionBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun FieldWithMetaFloatingRateOption.FieldWithMetaFloatingRateOptionBuilder.value(f: FloatingRateOption.FloatingRateOptionBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaFloatingRateIndexEnum.FieldWithMetaFloatingRateIndexEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaQuantity.FieldWithMetaQuantityBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun FieldWithMetaQuantity.FieldWithMetaQuantityBuilder.value(f: Quantity.QuantityBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaQuotedCurrencyPair.FieldWithMetaQuotedCurrencyPairBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun FieldWithMetaQuotedCurrencyPair.FieldWithMetaQuotedCurrencyPairBuilder.value(f: QuotedCurrencyPair.QuotedCurrencyPairBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaIndexAnnexSourceEnum.FieldWithMetaIndexAnnexSourceEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaInterpolationMethodEnum.FieldWithMetaInterpolationMethodEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaInformationProviderEnum.FieldWithMetaInformationProviderEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
@@ -131,10 +142,14 @@ fun FieldWithMetaMasterAgreementTypeEnum.FieldWithMetaMasterAgreementTypeEnumBui
 fun FieldWithMetaMasterConfirmationAnnexTypeEnum.FieldWithMetaMasterConfirmationAnnexTypeEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaMasterConfirmationTypeEnum.FieldWithMetaMasterConfirmationTypeEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaCreditNotation.FieldWithMetaCreditNotationBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun FieldWithMetaCreditNotation.FieldWithMetaCreditNotationBuilder.value(f: CreditNotation.CreditNotationBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaNaturalPersonRoleEnum.FieldWithMetaNaturalPersonRoleEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaCommodity.FieldWithMetaCommodityBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun FieldWithMetaCommodity.FieldWithMetaCommodityBuilder.value(f: Commodity.CommodityBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaProductIdentifier.FieldWithMetaProductIdentifierBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun FieldWithMetaProductIdentifier.FieldWithMetaProductIdentifierBuilder.value(f: ProductIdentifier.ProductIdentifierBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaIdentifier.FieldWithMetaIdentifierBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+fun FieldWithMetaIdentifier.FieldWithMetaIdentifierBuilder.value(f: Identifier.IdentifierBuilder.() -> Unit) = orCreateValue.apply(f)
 fun FieldWithMetaCategoryEnum.FieldWithMetaCategoryEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaAssetClassEnum.FieldWithMetaAssetClassEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaEntityTypeEnum.FieldWithMetaEntityTypeEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
@@ -142,3 +157,6 @@ fun FieldWithMetaResourceTypeEnum.FieldWithMetaResourceTypeEnumBuilder.meta(f: M
 fun FieldWithMetaRestructuringEnum.FieldWithMetaRestructuringEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaSettledEntityMatrixSourceEnum.FieldWithMetaSettledEntityMatrixSourceEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaSpreadScheduleTypeEnum.FieldWithMetaSpreadScheduleTypeEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
+
+fun MetaFields.MetaFieldsBuilder.key(index: Int, f: Key.KeyBuilder.() -> Unit) = this.getOrCreateKey(index).apply(f)
+fun MetaFields.MetaFieldsBuilder.key(f: Key.KeyBuilder.() -> Unit) = addKey(Key.builder().apply(f).build())

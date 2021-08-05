@@ -9,8 +9,8 @@ plugins {
 
 }
 
-val cdm_version = "2.116.0"
-val patch_version = "1"
+val cdm_version = "2.118.4"
+val patch_version = "0"
 
 group = "com.github.vjuge"
 val artifactId = "cdmdsl"
