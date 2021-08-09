@@ -40,7 +40,10 @@ import cdm.event.workflow.WorkflowStep
 import cdm.event.workflow.metafields.FieldWithMetaCreditLimitTypeEnum
 import cdm.event.workflow.metafields.FieldWithMetaLimitLevelEnum
 import cdm.event.workflow.metafields.ReferenceWithMetaWorkflowStep
+import cdm.legalagreement.common.ContractualSupplementEnum
+import cdm.legalagreement.common.GoverningLawEnum
 import cdm.legalagreement.common.LegalAgreement
+import cdm.legalagreement.common.MatrixTermEnum
 import cdm.legalagreement.common.metafields.*
 import cdm.legalagreement.contract.metafields.FieldWithMetaBrokerConfirmationTypeEnum
 import cdm.legalagreement.csa.metafields.FieldWithMetaCreditSupportAgreementTypeEnum
@@ -68,44 +71,79 @@ import cdm.product.common.settlement.metafields.*
 import cdm.product.template.*
 import cdm.product.template.metafields.*
 import com.rosetta.model.lib.meta.Key
+import com.rosetta.model.lib.meta.Reference
 import com.rosetta.model.metafields.FieldWithMetaDate
 import com.rosetta.model.metafields.FieldWithMetaString
 import com.rosetta.model.metafields.MetaFields
 
 fun ReferenceWithMetaParty.ReferenceWithMetaPartyBuilder.value(f: Party.PartyBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaParty.ReferenceWithMetaPartyBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaBusinessDayAdjustments.ReferenceWithMetaBusinessDayAdjustmentsBuilder.value(f: BusinessDayAdjustments.BusinessDayAdjustmentsBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaBusinessDayAdjustments.ReferenceWithMetaBusinessDayAdjustmentsBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaTrade.ReferenceWithMetaTradeBuilder.value(f: Trade.TradeBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaTrade.ReferenceWithMetaTradeBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaTradeState.ReferenceWithMetaTradeStateBuilder.value(f: TradeState.TradeStateBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaTradeState.ReferenceWithMetaTradeStateBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaBusinessCenters.ReferenceWithMetaBusinessCentersBuilder.value(f: BusinessCenters.BusinessCentersBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaBusinessCenters.ReferenceWithMetaBusinessCentersBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaCalculationPeriodDates.ReferenceWithMetaCalculationPeriodDatesBuilder.value(f: CalculationPeriodDates.CalculationPeriodDatesBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaCalculationPeriodDates.ReferenceWithMetaCalculationPeriodDatesBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaPaymentDates.ReferenceWithMetaPaymentDatesBuilder.value(f: PaymentDates.PaymentDatesBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaPaymentDates.ReferenceWithMetaPaymentDatesBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaProductIdentifier.ReferenceWithMetaProductIdentifierBuilder.value(f: ProductIdentifier.ProductIdentifierBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaProductIdentifier.ReferenceWithMetaProductIdentifierBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaTransferPrimitive.ReferenceWithMetaTransferPrimitiveBuilder.value(f: TransferPrimitive.TransferPrimitiveBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaTransferPrimitive.ReferenceWithMetaTransferPrimitiveBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaMoney.ReferenceWithMetaMoneyBuilder.value(f: Money.MoneyBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaMoney.ReferenceWithMetaMoneyBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaAdjustableOrRelativeDates.ReferenceWithMetaAdjustableOrRelativeDatesBuilder.value(f: AdjustableOrRelativeDates.AdjustableOrRelativeDatesBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaAdjustableOrRelativeDates.ReferenceWithMetaAdjustableOrRelativeDatesBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaInterestRatePayout.ReferenceWithMetaInterestRatePayoutBuilder.value(f: InterestRatePayout.InterestRatePayoutBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaInterestRatePayout.ReferenceWithMetaInterestRatePayoutBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaCashflow.ReferenceWithMetaCashflowBuilder.value(f: Cashflow.CashflowBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaCashflow.ReferenceWithMetaCashflowBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaCreditDefaultPayout.ReferenceWithMetaCreditDefaultPayoutBuilder.value(f: CreditDefaultPayout.CreditDefaultPayoutBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaCreditDefaultPayout.ReferenceWithMetaCreditDefaultPayoutBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaEquityPayout.ReferenceWithMetaEquityPayoutBuilder.value(f: EquityPayout.EquityPayoutBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaEquityPayout.ReferenceWithMetaEquityPayoutBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaWorkflowStep.ReferenceWithMetaWorkflowStepBuilder.value(f: WorkflowStep.WorkflowStepBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaWorkflowStep.ReferenceWithMetaWorkflowStepBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaLegalAgreement.ReferenceWithMetaLegalAgreementBuilder.value(f: LegalAgreement.LegalAgreementBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaLegalAgreement.ReferenceWithMetaLegalAgreementBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaOptionPayout.ReferenceWithMetaOptionPayoutBuilder.value(f: OptionPayout.OptionPayoutBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaOptionPayout.ReferenceWithMetaOptionPayoutBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaPortfolioState.ReferenceWithMetaPortfolioStateBuilder.value(f: PortfolioState.PortfolioStateBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaPortfolioState.ReferenceWithMetaPortfolioStateBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaNaturalPerson.ReferenceWithMetaNaturalPersonBuilder.value(f: NaturalPerson.NaturalPersonBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaNaturalPerson.ReferenceWithMetaNaturalPersonBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaFixedRateSpecification.ReferenceWithMetaFixedRateSpecificationBuilder.value(f: FixedRateSpecification.FixedRateSpecificationBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaFixedRateSpecification.ReferenceWithMetaFixedRateSpecificationBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaAccount.ReferenceWithMetaAccountBuilder.value(f: Account.AccountBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaAccount.ReferenceWithMetaAccountBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaRateObservation.ReferenceWithMetaRateObservationBuilder.value(f: RateObservation.RateObservationBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaRateObservation.ReferenceWithMetaRateObservationBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaLegalEntity.ReferenceWithMetaLegalEntityBuilder.value(f: LegalEntity.LegalEntityBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaLegalEntity.ReferenceWithMetaLegalEntityBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaCashSettlementTerms.ReferenceWithMetaCashSettlementTermsBuilder.value(f: CashSettlementTerms.CashSettlementTermsBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaCashSettlementTerms.ReferenceWithMetaCashSettlementTermsBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaPhysicalSettlementTerms.ReferenceWithMetaPhysicalSettlementTermsBuilder.value(f: PhysicalSettlementTerms.PhysicalSettlementTermsBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaPhysicalSettlementTerms.ReferenceWithMetaPhysicalSettlementTermsBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaProtectionTerms.ReferenceWithMetaProtectionTermsBuilder.value(f: ProtectionTerms.ProtectionTermsBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaProtectionTerms.ReferenceWithMetaProtectionTermsBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaObservation.ReferenceWithMetaObservationBuilder.value(f: Observation.ObservationBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaObservation.ReferenceWithMetaObservationBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaPayout.ReferenceWithMetaPayoutBuilder.value(f: Payout.PayoutBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaPayout.ReferenceWithMetaPayoutBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaResolvablePayoutQuantity.ReferenceWithMetaResolvablePayoutQuantityBuilder.value(f: ResolvablePayoutQuantity.ResolvablePayoutQuantityBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaResolvablePayoutQuantity.ReferenceWithMetaResolvablePayoutQuantityBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaSecurityFinancePayout.ReferenceWithMetaSecurityFinancePayoutBuilder.value(f: SecurityFinancePayout.SecurityFinancePayoutBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaSecurityFinancePayout.ReferenceWithMetaSecurityFinancePayoutBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaSecurityPayout.ReferenceWithMetaSecurityPayoutBuilder.value(f: SecurityPayout.SecurityPayoutBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaSecurityPayout.ReferenceWithMetaSecurityPayoutBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaSettlementTerms.ReferenceWithMetaSettlementTermsBuilder.value(f: SettlementTerms.SettlementTermsBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaSettlementTerms.ReferenceWithMetaSettlementTermsBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun ReferenceWithMetaCreditEvents.ReferenceWithMetaCreditEventsBuilder.value(f: CreditEvents.CreditEventsBuilder.() -> Unit) = orCreateValue.apply(f)
+fun ReferenceWithMetaCreditEvents.ReferenceWithMetaCreditEventsBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) = orCreateReference.apply(f)
 fun FieldWithMetaString.FieldWithMetaStringBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaAccountTypeEnum.FieldWithMetaAccountTypeEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun FieldWithMetaDate.FieldWithMetaDateBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)

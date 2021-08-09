@@ -10,7 +10,7 @@ plugins {
 }
 
 val cdm_version = "2.118.4"
-val patch_version = "0"
+val patch_version = "1"
 
 group = "com.github.vjuge"
 val artifactId = "cdmdsl"
@@ -52,7 +52,7 @@ tasks.test {
     useJUnitPlatform()
 }
 
-tasks.withType<KotlinCompile>() {
+tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
 }
 
