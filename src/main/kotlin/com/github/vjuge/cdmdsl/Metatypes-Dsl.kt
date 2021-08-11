@@ -14,6 +14,7 @@ import cdm.base.datetime.metafields.ReferenceWithMetaBusinessCenters
 import cdm.base.datetime.metafields.ReferenceWithMetaBusinessDayAdjustments
 import cdm.base.math.Quantity
 import cdm.base.math.metafields.FieldWithMetaQuantity
+import cdm.base.math.metafields.ReferenceWithMetaQuantity
 import cdm.base.staticdata.asset.common.Commodity
 import cdm.base.staticdata.asset.common.ProductIdentifier
 import cdm.base.staticdata.asset.common.metafields.FieldWithMetaAssetClassEnum
@@ -194,3 +195,12 @@ fun FieldWithMetaSettledEntityMatrixSourceEnum.FieldWithMetaSettledEntityMatrixS
 fun FieldWithMetaSpreadScheduleTypeEnum.FieldWithMetaSpreadScheduleTypeEnumBuilder.meta(f: MetaFields.MetaFieldsBuilder.() -> Unit) = orCreateMeta.apply(f)
 fun MetaFields.MetaFieldsBuilder.key(index: Int, f: Key.KeyBuilder.() -> Unit) = this.getOrCreateKey(index).apply(f)
 fun MetaFields.MetaFieldsBuilder.key(f: Key.KeyBuilder.() -> Unit) = addKey(Key.builder().apply(f).build())
+
+fun ReferenceWithMetaQuantity.ReferenceWithMetaQuantityBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) =
+    orCreateReference.apply(f)
+
+fun ReferenceWithMetaPrice.ReferenceWithMetaPriceBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) =
+    orCreateReference.apply(f)
+
+fun ReferenceWithMetaFloatingRateOption.ReferenceWithMetaFloatingRateOptionBuilder.reference(f: Reference.ReferenceBuilder.() -> Unit) =
+    orCreateReference.apply(f)
