@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.vjuge.cdmdsl.gradle.CdmDslTask
 
 plugins {
     kotlin("jvm") version "1.3.71"
@@ -6,16 +7,13 @@ plugins {
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.20"
     signing
-
+//    id("com.github.vjuge.cdmdsl.gradle")
 }
 
-val cdm_version = "2.118.4"
-val patch_version = "2"
-
-group = "com.github.vjuge"
-val artifactId = "cdmdsl"
-version = "${cdm_version}.${patch_version}"
-
+tasks.register("pipo", CdmDslTask::class.java){
+    pipoVar = "Vincent"
+    group = "verification"
+}
 
 repositories {
     mavenCentral()
@@ -43,9 +41,11 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
-    implementation("com.isda:cdm:${cdm_version}")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
+    implementation("com.isda:cdm:${property("cdm_version")}")
+    implementation("io.github.classgraph:classgraph:${property("classGraph")}")
+    implementation("com.squareup:kotlinpoet:${property("kotlinpoet_version")}")
 }
 
 tasks.test {
@@ -75,9 +75,9 @@ repositories {
 publishing {
     publications {
         create<MavenPublication>("mavenPublish") {
-            groupId = "${group}"
-            artifactId = "${artifactId}"
-            version = "${version}"
+            groupId = "${property("group")}"
+            artifactId = "${property("artifactId")}"
+            version = "${property("cdm_version")}.${property("patch_version")}"
 
             from(components["java"])
             pom {
