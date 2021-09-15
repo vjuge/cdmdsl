@@ -1,6 +1,9 @@
 package com.github.vjuge.cdmdsl
 
 import com.github.vjuge.cdmdsl.generator.*
+import com.github.vjuge.cdmdsl.generator.MetaGenerator.Companion.addMetaDataFunctions
+import com.github.vjuge.cdmdsl.generator.MetaGenerator.Companion.addMetaFunctions
+import com.github.vjuge.cdmdsl.generator.MetaGenerator.Companion.addReferenceFunctions
 import com.rosetta.model.lib.meta.FieldWithMeta
 import com.rosetta.model.lib.meta.MetaDataFields
 import com.rosetta.model.lib.meta.ReferenceWithMeta
@@ -12,32 +15,36 @@ import org.junit.jupiter.api.TestInstance
 import java.io.File
 import java.nio.file.Paths
 
+
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class GeneratorTest {
+class MetaGeneratorTest {
 
     companion object {
+
         val sourceDest: File = Paths.get(
             "src",
-            "main",
-            "kotlin"
+            "test",
+            "resources"
         ).toFile()
+
+        val generator = MetaGenerator()
     }
 
     @BeforeAll
     fun setup(){
-        File("src/main/resources/").deleteRecursively()
+        sourceDest.deleteRecursively()
     }
 
     @Test
     fun test() {
-        generateMeta().writeTo(sourceDest)
+        generator.generate().writeTo(sourceDest!!)
     }
 
     @Test
     @Disabled
     fun `test Meta Field`() {
         val fileSpec = FileSpec.builder("com.github.vjuge.cdmdsl", "MetaTypesDslMetaOnly")
-        scan("cdm.*", "com.rosetta.*")
+        generator.scanResult
             .use { scanResult ->
                 scanResult.allInterfaces.filter {
                     !it.name.endsWith(".DateBuilder") && !it.name.endsWith(".StringBuilder")
@@ -55,7 +62,7 @@ class GeneratorTest {
     @Disabled
     fun `test Meta Data Fields`(){
         val fileSpec = FileSpec.builder("com.github.vjuge.cdmdsl", "MetaTypesDslMetaDataFields")
-        scan("cdm.*", "com.rosetta.*")
+        generator.scanResult
             .use { scanResult ->
                 scanResult.allInterfaces.filter {
                     !it.name.endsWith(".DateBuilder") && !it.name.endsWith(".StringBuilder")
@@ -73,7 +80,7 @@ class GeneratorTest {
     @Disabled
     fun `test Reference Field`() {
         val fileSpec = FileSpec.builder("com.github.vjuge.cdmdsl", "MetaTypesDslRefOnly")
-        scan("cdm.*", "com.rosetta.*")
+        generator.scanResult
             .use { scanResult ->
                 scanResult.allInterfaces.filter {
                     !it.name.endsWith(".DateBuilder") && !it.name.endsWith(".StringBuilder")
@@ -86,7 +93,6 @@ class GeneratorTest {
             }
         fileSpec.build().writeTo(sourceDest)
     }
-
 }
 
 
