@@ -10,10 +10,6 @@ plugins {
 //    id("com.github.vjuge.cdmdsl.gradle")
 }
 
-tasks.register("pipo", CdmDslTask::class.java){
-    pipoVar = "Vincent"
-    group = "verification"
-}
 
 repositories {
     mavenCentral()
@@ -37,12 +33,20 @@ repositories {
             password = project.properties["ossrhPassword"] as String?
         }
     }
+    maven {
+        setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+        credentials {
+            username = project.properties["iossrhUsername"] as String?
+            password = project.properties["ossrhPassword"] as String?
+        }
+    }
 }
 
 dependencies {
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:${property("junit_version")}")
     implementation("com.isda:cdm:${property("cdm_version")}")
     implementation("io.github.classgraph:classgraph:${property("classGraph")}")
     implementation("com.squareup:kotlinpoet:${property("kotlinpoet_version")}")
@@ -54,6 +58,7 @@ tasks.test {
 
 tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
+    setDependsOn(listOf("genSources"))
 }
 
 java {
@@ -61,12 +66,16 @@ java {
     withSourcesJar()
 }
 
-repositories {
-    maven {
-        setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-        credentials {
-            username = project.properties["iossrhUsername"] as String?
-            password = project.properties["ossrhPassword"] as String?
+tasks.register("genSources", CdmDslTask::class.java){
+    println("generating sources...")
+    pipoVar = "Vincent"
+    group = "verification"
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir("<path to generatedJava>")
         }
     }
 }
