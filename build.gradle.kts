@@ -7,7 +7,6 @@ plugins {
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.20"
     signing
-//    id("com.github.vjuge.cdmdsl.gradle")
 }
 
 
@@ -43,16 +42,8 @@ repositories {
 }
 
 dependencies {
-//    testImplementation(kotlin("test-junit5"))
-//    testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
-//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
-//    testImplementation("org.junit.jupiter:junit-jupiter-params:${property("junit_version")}")
     implementation("com.isda:cdm:${property("cdm_version")}")
 }
-
-//tasks.test {
-//    useJUnitPlatform()
-//}
 
 tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
@@ -77,8 +68,6 @@ sourceSets {
 tasks.register("genSources", CdmDslTask::class.java){
     sourceDestFolder = generatedSrcDir
 }
-
-
 
 val cdm_version = "${property("cdm_version")}"
 val patch_version = "${property("patch_version")}"
