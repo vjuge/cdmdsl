@@ -1,6 +1,5 @@
 plugins {
     kotlin("jvm") version "1.3.71"
-    id ("java-gradle-plugin")
     idea
     maven
 }
@@ -26,8 +25,8 @@ dependencies{
     implementation(gradleApi())
 
     testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
     implementation("com.isda:cdm:${property("cdm_version")}")
     implementation("io.github.classgraph:classgraph:${property("classGraph")}")
     implementation("com.squareup:kotlinpoet:${property("kotlinpoet_version")}")

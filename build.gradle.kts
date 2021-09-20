@@ -43,18 +43,16 @@ repositories {
 }
 
 dependencies {
-    testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:${property("junit_version")}")
+//    testImplementation(kotlin("test-junit5"))
+//    testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
+//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
+//    testImplementation("org.junit.jupiter:junit-jupiter-params:${property("junit_version")}")
     implementation("com.isda:cdm:${property("cdm_version")}")
-    implementation("io.github.classgraph:classgraph:${property("classGraph")}")
-    implementation("com.squareup:kotlinpoet:${property("kotlinpoet_version")}")
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
+//tasks.test {
+//    useJUnitPlatform()
+//}
 
 tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
@@ -66,27 +64,32 @@ java {
     withSourcesJar()
 }
 
-tasks.register("genSources", CdmDslTask::class.java){
-    println("generating sources...")
-    pipoVar = "Vincent"
-    group = "verification"
-}
+val generatedSrcDir = File(buildDir, "/generated/src/main/kotlin/").toString()
 
 sourceSets {
     main {
         java {
-            srcDir("<path to generatedJava>")
+            srcDirs(generatedSrcDir)
         }
     }
 }
 
+tasks.register("genSources", CdmDslTask::class.java){
+    sourceDestFolder = generatedSrcDir
+}
+
+
+
+val cdm_version = "${property("cdm_version")}"
+val patch_version = "${property("patch_version")}"
+version = "${cdm_version}.${patch_version}"
 
 publishing {
     publications {
         create<MavenPublication>("mavenPublish") {
             groupId = "${property("group")}"
             artifactId = "${property("artifactId")}"
-            version = "${property("cdm_version")}.${property("patch_version")}"
+            version = "${version}"
 
             from(components["java"])
             pom {

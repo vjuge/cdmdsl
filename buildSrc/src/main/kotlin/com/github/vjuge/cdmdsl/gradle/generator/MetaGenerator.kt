@@ -1,18 +1,16 @@
-package com.github.vjuge.cdmdsl.generator
+package com.github.vjuge.cdmdsl.gradle.generator
 
 import com.rosetta.model.lib.meta.*
 import com.rosetta.model.metafields.MetaFields
 import com.squareup.kotlinpoet.*
-import io.github.classgraph.ClassGraph
 import io.github.classgraph.ClassInfo
-import io.github.classgraph.ScanResult
 import io.github.classgraph.TypeArgument
 
 class MetaGenerator : Generator() {
 
-    override val PACKAGE = "com.github.vjuge.cdmdsl.meta"
-    override val CLASS = "MetaTypesDsl"
-    override val CDM_PKG: Array<String> = arrayOf("cdm.*", "com.rosetta.*")
+    override var PACKAGE : String = "com.github.vjuge.cdmdsl"
+    override var CLASS = "MetaTypesDsl"
+    override var CDM_PKG: Array<String> = arrayOf("cdm", "com.rosetta")
 
     override fun generate(): FileSpec {
         val fileSpec = FileSpec.builder(PACKAGE, CLASS)
@@ -20,15 +18,15 @@ class MetaGenerator : Generator() {
             .allInterfaces
             .forEach { classInfo ->
                 if (classInfo.implementsInterface(ReferenceWithMeta.ReferenceWithMetaBuilder::class.java)) {
-                    println("Ref : " + classInfo.name)
+//                    println("Ref : " + classInfo.name)
                     addReferenceFunctions(fileSpec, classInfo)
                 }
                 if (classInfo.implementsInterface(FieldWithMeta.FieldWithMetaBuilder::class.java)) {
-                    println("Meta : " + classInfo.name)
+//                    println("Meta : " + classInfo.name)
                     addMetaFunctions(fileSpec, classInfo)
                 }
                 if (classInfo.implementsInterface(MetaDataFields.MetaDataFieldsBuilder::class.java)) {
-                    println("Meta : " + classInfo.name)
+//                    println("Meta : " + classInfo.name)
                     addMetaDataFunctions(fileSpec, classInfo)
                 }
             }

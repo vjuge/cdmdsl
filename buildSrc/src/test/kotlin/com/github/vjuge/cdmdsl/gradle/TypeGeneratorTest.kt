@@ -1,6 +1,9 @@
-package com.github.vjuge.cdmdsl
+package com.github.vjuge.cdmdsl.gradle
 
+import com.github.vjuge.cdmdsl.gradle.generator.TypeGenerator
 import org.junit.jupiter.api.BeforeAll
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import java.io.File
 import java.nio.file.Paths
@@ -14,14 +17,20 @@ class TypeGeneratorTest {
         val sourceDest: File = Paths.get(
             "src",
             "test",
-            "resources",
-            "types"
-        ).toFile()
+            "resources").toFile()
     }
 
     @BeforeAll
     fun setup(){
         sourceDest.deleteRecursively()
+    }
+
+    @Test
+    @Disabled
+    fun test(){
+        TypeGenerator().apply {
+            CDM_PKG = arrayOf("cdm.")
+        }.generate().writeTo(sourceDest)
     }
 
 
