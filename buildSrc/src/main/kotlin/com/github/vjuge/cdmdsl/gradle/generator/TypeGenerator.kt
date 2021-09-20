@@ -9,7 +9,6 @@ class TypeGenerator : Generator() {
 
     override var PACKAGE: String = "com.github.vjuge.cdmdsl"
     override var CLASS = "TypesDsl"
-//    override var CDM_PKG: Array<String> = arrayOf("cdm.base.staticdata.asset.common.metafields.")
     override var CDM_PKG: Array<String> = arrayOf("cdm", "com.rosetta")
 
     override fun generate(): FileSpec {
@@ -18,13 +17,9 @@ class TypeGenerator : Generator() {
             .allInterfaces
             .filter {
                 it.implementsInterface(RosettaModelObjectBuilder::class.java)
-            }/*.filter {
-                !it.implementsInterface(FieldWithMeta.FieldWithMetaBuilder::class.java)
-            }*/.filter {
+            }.filter {
                 it.name.endsWith("Builder")
-            }/*.filter {
-                it.name.contains("AdjustableDatesBuilder")
-            }*/
+            }
 
         classInfoList.forEach { classInfo: ClassInfo ->
             println("Type : " + classInfo.name)

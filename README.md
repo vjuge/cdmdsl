@@ -71,11 +71,15 @@ val trade = Contract.builder().apply {
 
 ```
 
+## How it works
+
+Cdmdsl uses java reflection to checkout the properties of cdm objects, and create extension functions accordingly.
+
+Sources files are generated thanks to custom task `genSources`
+
 ## How to Build
 
-1. clone and checkout branch : [https://github.com/vjuge/rosetta-code-generators/tree/kotlin-generator-dsl/kotlin](https://github.com/vjuge/rosetta-code-generators/tree/kotlin-generator-dsl/kotlin)
-2. copy and paste the latests rosetta files (*.rosetta) from the distribution
-3. run the test, [KotlinModelObjectGeneratorTest.xtend](https://github.com/vjuge/rosetta-code-generators/blob/a5e1f739f5d96decab6e5951c2cd702361baed78/kotlin/src/test/java/com/regnosys/rosetta/generator/kotlin/KotlinModelObjectGeneratorTest.xtend#L33), modifying the paths where to find the rosetta files
-4. copy and paste resulting DSL kotlin files `Metatypes-Dsl.kt` & `Types-Dsl.kt` into this project's src folder
-5. build
+1. change the cdm version from `gradle.properties`
+2. execute `./gradlew clean build publish`
 
+> **WARNING**: This tool is compatible with cdm version > 2.118.0
