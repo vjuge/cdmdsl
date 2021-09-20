@@ -25,20 +25,6 @@ repositories {
             password = project.properties["isdaPwd"] as String?
         }
     }
-    maven {
-        setUrl("https://s01.oss.sonatype.org")
-        credentials {
-            username = project.properties["iossrhUsername"] as String?
-            password = project.properties["ossrhPassword"] as String?
-        }
-    }
-    maven {
-        setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-        credentials {
-            username = project.properties["iossrhUsername"] as String?
-            password = project.properties["ossrhPassword"] as String?
-        }
-    }
 }
 
 dependencies {
@@ -109,8 +95,8 @@ publishing {
             maven {
                 setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
                 credentials {
-                    username = project.properties["iossrhUsername"] as String?
-                    password = project.properties["ossrhPassword"] as String?
+                    username = "${property("iossrhUsername")}"
+                    password = "${property("ossrhPassword")}"
                 }
             }
         }
