@@ -14,7 +14,7 @@ comparison:
 json:
 ```json
 {
-  "contractIdentifier" : [ {
+  "tradeIdentifier" : [ {
     "assignedIdentifier" : [ {
       "identifier" : {
         "value" : "6234"
@@ -40,11 +40,12 @@ dsl equivalent:
 
 ```kotlin
 
-val trade = Contract.builder().apply {
+val trade = Trade.builder().apply {
     tradeDate {
         value = DateImpl(24, 9, 2001)
     }
-    contractIdentifier {
+//    will add a trade identifier in the list
+    tradeIdentifier {
         assignedIdentifier {
             identifier {
                 value = "6234"
@@ -54,7 +55,8 @@ val trade = Contract.builder().apply {
             externalReference = "party1"
         }
     }
-    contractIdentifier {
+//    will add a trade identifier in the list in the second position
+    tradeIdentifier(1) {
         assignedIdentifier {
             identifier {
                 value = "6569"
@@ -70,6 +72,9 @@ val trade = Contract.builder().apply {
 }.build()
 
 ```
+DSL provides function that will either get an existing mutable value and modify its content, or creates a new one if it doesn't exist already. 
+
+DSL covers any kind of properties, even list of properties. For the later, you can use a function indexed or not (in that case, the property will be added in the list as last element)
 
 ## How it works
 
