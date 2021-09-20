@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import com.github.vjuge.cdmdsl.gradle.CdmDslTask
 
 plugins {
     kotlin("jvm") version "1.3.71"
@@ -6,15 +7,7 @@ plugins {
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.20"
     signing
-
 }
-
-val cdm_version = "2.111.0"
-val patch_version = ""
-
-group = "com.github.vjuge"
-val artifactId = "cdmdsl"
-version = "${cdm_version}.${patch_version}"
 
 
 repositories {
@@ -39,29 +32,6 @@ repositories {
             password = project.properties["ossrhPassword"] as String?
         }
     }
-}
-
-dependencies {
-    testImplementation(kotlin("test-junit5"))
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
-    implementation("com.isda:cdm:${cdm_version}")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "11"
-}
-
-java {
-    withJavadocJar()
-    withSourcesJar()
-}
-
-repositories {
     maven {
         setUrl("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
         credentials {
@@ -71,12 +41,43 @@ repositories {
     }
 }
 
+dependencies {
+    implementation("com.isda:cdm:${property("cdm_version")}")
+}
+
+tasks.withType<KotlinCompile>().all {
+    kotlinOptions.jvmTarget = "1.8"
+    setDependsOn(listOf("genSources"))
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+val generatedSrcDir = File(buildDir, "/generated/src/main/kotlin/").toString()
+
+sourceSets {
+    main {
+        java {
+            srcDirs(generatedSrcDir)
+        }
+    }
+}
+
+tasks.register("genSources", CdmDslTask::class.java){
+    sourceDestFolder = generatedSrcDir
+}
+
+val cdm_version = "${property("cdm_version")}"
+val patch_version = "${property("patch_version")}"
+version = "${cdm_version}.${patch_version}"
 
 publishing {
     publications {
         create<MavenPublication>("mavenPublish") {
-            groupId = "${group}"
-            artifactId = "${artifactId}"
+            groupId = "${property("group")}"
+            artifactId = "${property("artifactId")}"
             version = "${version}"
 
             from(components["java"])
