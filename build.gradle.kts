@@ -9,6 +9,17 @@ plugins {
     signing
 }
 
+apply(from = "versions.gradle.kts")
+val cdm_version: String by extra
+val patch_version: String by extra
+
+project.properties.forEach {
+    println("cdmdsl -> " + it.key + " : " + it.value)
+}
+
+extra.properties.forEach {
+    println("cdmdsl extra -> " + it.key + " : " + it.value)
+}
 
 repositories {
     mavenCentral()
@@ -28,7 +39,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.isda:cdm:${property("cdm_version")}")
+    implementation("com.isda:cdm:${cdm_version}")
 }
 
 tasks.withType<KotlinCompile>().all {
@@ -55,8 +66,6 @@ tasks.register("genSources", CdmDslTask::class.java){
     sourceDestFolder = generatedSrcDir
 }
 
-val cdm_version = "${property("cdm_version")}"
-val patch_version = "${property("patch_version")}"
 version = "${cdm_version}.${patch_version}"
 
 publishing {
