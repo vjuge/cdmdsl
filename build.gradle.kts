@@ -1,5 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import com.github.vjuge.cdmdsl.gradle.CdmDslTask
+
 
 plugins {
     kotlin("jvm") version "1.3.71"
@@ -7,6 +7,85 @@ plugins {
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.20"
     signing
+}
+/*
+class GreetingPlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        val extension: GreetingPluginExtension =
+            project.extensions.create("greeting", GreetingPluginExtension::class.java)
+        project.task("hello").doLast {
+            println("Hello, " + extension.greeter)
+            println("I have a message for You: " + extension.message)
+        }
+    }
+}*/
+
+/*class GreetingPluginExtension {
+    var greeter = "Baeldung"
+    var message = "Message from Plugin!"
+}*/
+
+open class GreetingPluginExtension {
+    var message: String? = null
+    var greeter: String? = null
+}
+
+class GreetingPlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        val extension = project.extensions.create<GreetingPluginExtension>("greeting")
+        project.task("hello") {
+            doLast {
+                println("${extension.message} from ${extension.greeter}")
+            }
+        }
+    }
+}
+
+apply<GreetingPlugin>()
+
+// Configure the extension using a DSL block
+configure<GreetingPluginExtension> {
+    message = "Hello"
+    greeter = "Vincent"
+}
+
+
+open class GreetingToFileTask : DefaultTask() {
+
+    var destination: Any? = null
+
+    @OutputFile
+    fun getDestination(): File {
+        return project.file(destination!!)
+    }
+
+    @TaskAction
+    fun greet() {
+        val file = getDestination()
+        file.parentFile.mkdirs()
+        file.writeText("Hello!")
+    }
+}
+
+tasks.register<GreetingToFileTask>("greet") {
+    destination = { project.extra["greetingFile"]!! }
+}
+
+tasks.register("sayGreeting") {
+    dependsOn("greet")
+    doLast {
+        println(file(project.extra["greetingFile"]!!).readText())
+    }
+}
+
+//extra["greetingFile"] = "$buildDir/hello.txt"
+
+//extra.apply{
+//    set("greetingFile", "$buildDir/hello.txt")
+//}
+
+ext{
+    set("greetingFile", "$buildDir/hello.txt")
 }
 
 
@@ -28,12 +107,19 @@ repositories {
 }
 
 dependencies {
+    implementation(gradleApi())
+
+    testImplementation(kotlin("test-junit5"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${property("junit_version")}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${property("junit_version")}")
     implementation("com.isda:cdm:${property("cdm_version")}")
+    implementation("io.github.classgraph:classgraph:${property("classGraph")}")
+    implementation("com.squareup:kotlinpoet:${property("kotlinpoet_version")}")
 }
 
 tasks.withType<KotlinCompile>().all {
     kotlinOptions.jvmTarget = "1.8"
-    setDependsOn(listOf("genSources"))
+//    setDependsOn(listOf("genSources"))
 }
 
 java {
@@ -51,8 +137,11 @@ sourceSets {
     }
 }
 
-tasks.register("genSources", CdmDslTask::class.java){
-    sourceDestFolder = generatedSrcDir
+tasks.test {
+    useJUnitPlatform()
+    filter {
+        includeTestsMatching("*Test")
+    }
 }
 
 val cdm_version = "${property("cdm_version")}"

@@ -1,6 +1,6 @@
 package com.github.vjuge.cdmdsl.gradle
 
-import com.github.vjuge.cdmdsl.gradle.generator.TypeGenerator
+import com.github.vjuge.cdmdsl.generator.TypeGenerator
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test

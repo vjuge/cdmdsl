@@ -1,4 +1,4 @@
-package com.github.vjuge.cdmdsl.gradle.generator
+package com.github.vjuge.cdmdsl.generator
 
 import com.squareup.kotlinpoet.FileSpec
 import io.github.classgraph.ClassGraph

@@ -1,7 +1,6 @@
-package com.github.vjuge.cdmdsl.gradle.generator
+package com.github.vjuge.cdmdsl.generator
 
 import com.rosetta.model.lib.RosettaModelObjectBuilder
-import com.rosetta.model.lib.meta.FieldWithMeta
 import com.squareup.kotlinpoet.*
 import io.github.classgraph.*
 
