@@ -88,6 +88,12 @@ ext{
     set("greetingFile", "$buildDir/hello.txt")
 }
 
+//forces the cdmdsl plugin to use project's cdm version dep
+configurations.all{
+    resolutionStrategy{
+        force("com.isda:cdm:${property("cdm_version")}")
+    }
+}
 
 repositories {
     mavenCentral()
