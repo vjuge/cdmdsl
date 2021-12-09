@@ -71,9 +71,9 @@ version = "${cdm_version}.${patch_version}"
 publishing {
     publications {
         create<MavenPublication>("mavenPublish") {
-            groupId = "${property("group")}"
-            artifactId = "${property("artifactId")}"
-            version = "${version}"
+            groupId = extra.properties["group"] as String?
+            artifactId = extra.properties["artifactId"] as String?
+            version = version
 
             from(components["java"])
             pom {
@@ -84,7 +84,7 @@ publishing {
                 licenses {
                     license {
                         name.set("The Apache License, Version 2.0")
-                        url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+                        url.set("https://www.apache.org/licenses/LICENSE-2.0.txt")
                     }
                 }
                 developers {
