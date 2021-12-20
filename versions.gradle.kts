@@ -1,6 +1,6 @@
 mapOf(
     "appCompatVersion" to "1.1.0",
-    "cdm_version" to "2.133.2",
+    "cdm_version" to "2.136.1",
     "group" to "com.github.vjuge",
     "artifactId" to "cdmdsl",
     "classGraph" to "4.8.116",
