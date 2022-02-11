@@ -10,6 +10,7 @@ plugins {
 }
 
 apply(from = "versions.gradle.kts")
+apply(from = "repositories.gradle.kts")
 val cdm_version: String by extra
 val patch_version: String by extra
 
@@ -19,23 +20,6 @@ project.properties.forEach {
 
 extra.properties.forEach {
     println("cdmdsl extra -> " + it.key + " : " + it.value)
-}
-
-repositories {
-    mavenCentral()
-    jcenter()
-    maven {
-        // Restrict to CDM dependencies
-        content {
-            includeGroupByRegex("com\\.isda.*")
-            includeGroupByRegex("com\\.regnosys.*")
-        }
-        setUrl("https://regnosys.jfrog.io/artifactory/libs-snapshot")
-        credentials {
-            username = project.properties["isdaLogin"] as String?
-            password = project.properties["isdaPwd"] as String?
-        }
-    }
 }
 
 dependencies {

@@ -9,6 +9,7 @@ project.properties.forEach {
 }
 
 apply(from = "../versions.gradle.kts")
+apply(from = "../repositories.gradle.kts")
 
 extra.properties.forEach {
     println("buildSrc extra -> " + it.key + " : " + it.value)
@@ -19,23 +20,6 @@ val cdm_version: String by extra
 val classGraph: String by extra
 val kotlinpoet_version: String by extra
 val junit_version: String by extra
-
-repositories {
-    mavenCentral()
-    jcenter()
-    maven {
-        // Restrict to CDM dependencies
-        content {
-            includeGroupByRegex("com\\.isda.*")
-            includeGroupByRegex("com\\.regnosys.*")
-        }
-        setUrl("https://regnosys.jfrog.io/artifactory/libs-snapshot")
-        credentials {
-            username = project.properties["isdaLogin"] as String?
-            password = project.properties["isdaPwd"] as String?
-        }
-    }
-}
 
 dependencies{
     implementation(gradleApi())
