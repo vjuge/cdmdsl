@@ -18,6 +18,7 @@ The purpose of this DSL is to provide several advantages like :
 * **code completion**
 * **formatting** 
 * **type safety**
+* **support comments**
 
 
 ### Comparison: With & Without
