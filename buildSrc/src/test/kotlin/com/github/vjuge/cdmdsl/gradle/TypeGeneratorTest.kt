@@ -9,7 +9,6 @@ import java.io.File
 import java.nio.file.Paths
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-
 class TypeGeneratorTest {
 
     companion object {

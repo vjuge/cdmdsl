@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.github.vjuge.cdmdsl.gradle.CdmDslTask
 
 plugins {
-    kotlin("jvm") version "1.3.71"
+    kotlin("jvm") version "1.6.21"
     idea
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.20"
@@ -12,6 +12,7 @@ plugins {
 apply(from = "versions.gradle.kts")
 val cdm_version: String by extra
 val patch_version: String by extra
+val junit_version: String by extra
 
 project.properties.forEach {
     println("cdmdsl -> " + it.key + " : " + it.value)
@@ -40,6 +41,15 @@ repositories {
 
 dependencies {
     implementation("com.isda:cdm:${cdm_version}")
+
+    testImplementation(kotlin("test-junit5"))
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junit_version")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junit_version")
+
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
 }
 
 tasks.withType<KotlinCompile>().all {
