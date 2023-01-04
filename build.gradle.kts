@@ -53,7 +53,7 @@ tasks.withType<Test> {
 }
 
 tasks.withType<KotlinCompile>().all {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "11"
     setDependsOn(listOf("genSources"))
 }
 
